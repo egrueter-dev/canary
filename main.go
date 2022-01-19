@@ -42,7 +42,6 @@ func main() {
 		GenerateLogFile("log.json")
 		fmt.Println("Generated Example File")
 		GenerateExampleFiles()
-
 	case "-start-process":
 		user, err := user.Current()
 
@@ -111,6 +110,10 @@ func LogProcessStart(event ProcessStartEvent, filename string) {
 
 	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
 	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
+}
+
+func ProcessStart() {
+
 }
 
 //// CORE FUNCTIONALITY

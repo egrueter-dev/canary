@@ -50,6 +50,12 @@ func TestLogProcessStart(t *testing.T) {
 	testCleanup()
 }
 
+func TestProcessStart(t *testing.T) {
+	args := [3]string{"--a", "--b", "--c"}
+	ProcessStart()
+	// Process
+}
+
 func TestLoggingMultipleStartProcesses(t *testing.T) {
 	fileName := "log_test.json"
 
