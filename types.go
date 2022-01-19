@@ -9,5 +9,5 @@ type ProcessStartEvent struct {
 }
 
 type LogFile struct {
-	ProcesStarts []ProcessStartEvent
+	ProcessStarts []ProcessStartEvent
 }

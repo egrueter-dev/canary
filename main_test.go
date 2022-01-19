@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"testing"
+	"time"
 )
 
 func TestGenerateLogFile(t *testing.T) {
@@ -14,27 +15,29 @@ func TestGenerateLogFile(t *testing.T) {
 		t.Error("Error, unable to create logfile", err)
 	}
 
-	// testCleanup()
+	testCleanup()
 }
 
 // TODO: Should we check for presence of file before writing?
 
 // Tests the user can write a new process
 // to the test_log.json file
-// func TestLogProcessStart(t *testing.T) {
-// 	GenerateLogFile("log_test")
+func TestLogProcessStart(t *testing.T) {
+	fileName := "log_test"
 
-// 	data := ProcessStartEvent{
-// 		UserName:    "Rico",
-// 		ProcessName: "ProcessStarted",
-// 		CommandLine: "--arg",
-// 		Timestamp:   time.Now(),
-// 	}
+	GenerateLogFile(fileName)
 
-// 	LogProcessStart(data)
+	data := ProcessStartEvent{
+		UserName:    "Rico",
+		ProcessName: "ProcessStarted",
+		CommandLine: "--arg",
+		Timestamp:   time.Now(),
+	}
 
-// 	testCleanup()
-// }
+	LogProcessStart(data, fileName)
+
+	// 	testCleanup()
+}
 
 // func TestLoggingMultipleProcesses(t *testing.T) {
 // 	GenerateLogFile("log_test")

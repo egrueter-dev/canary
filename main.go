@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -21,15 +22,14 @@ func main() {
 	// Start by generating the empty log file
 	GenerateLogFile("logfile")
 
-	// Log Process Start
-
-	// Setup Flag
-	// GenerateJsonFile
+	// Log Process Start if argument is run
+	//
 
 	// Log Process start
 	// log process ID
 	// Log username
 
+	// Other Logging information
 	// user, err := user.Current()
 
 	// if err != nil {
@@ -67,6 +67,17 @@ func GenerateLogFile(filename string) {
 }
 
 func LogProcessStart(event ProcessStartEvent, filename string) {
+
+	logFile := LogFile{}
+
+	json.Unmarshal([]byte(filename), LogFile{})
+
+	fmt.Println(logFile)
+
+	logFile.ProcessStarts = append(logFile.ProcessStarts, event)
+
+	fmt.Println(logFile)
+
 	// todo: make process start even external
 
 }
