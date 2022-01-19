@@ -19,7 +19,6 @@ import (
 //  -- delete [filepath] ( supply filepath )
 //  -- transmit (transmit the )
 
-// TODO: Testing should not create another log.json
 func main() {
 	// Pull command Line Arguments
 	// if multiple args are passed,
@@ -39,8 +38,10 @@ func main() {
 
 		fmt.Println(list)
 	case "-setup":
-		fmt.Println("Generating Log File ")
+		fmt.Println("Generated Log File")
 		GenerateLogFile("log.json")
+		fmt.Println("Generated Example File")
+		GenerateExampleFiles()
 
 	case "-start-process":
 		user, err := user.Current()
@@ -65,22 +66,15 @@ func main() {
 
 		fmt.Println("start process")
 	}
+}
 
-	// Log Process start
-	// log process ID
-	// Log username
+func GenerateExampleFiles() {
+	d1 := []byte("hello\ngo\n")
+	err := os.WriteFile("example.txt", d1, 0644)
 
-	// Other Logging information
-	// user, err := user.Current()
-
-	// if err != nil {
-	// 	log.Fatalf(err.Error())
-	// }
-
-	// username := user.Username
-	// fmt.Printf("Username: %s\n", username)
-
-	// fmt.Println(os.Getpid())
+	if err != nil {
+		panic(err)
+	}
 }
 
 func GenerateLogFile(file string) {

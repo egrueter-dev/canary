@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 	"testing"
 	"time"
@@ -11,6 +10,17 @@ func TestGenerateLogFile(t *testing.T) {
 	GenerateLogFile("log_test.json")
 
 	if _, err := os.Stat("log_test.json"); err == nil {
+	} else {
+		t.Error("Error, unable to create logfile", err)
+	}
+
+	testCleanup()
+}
+
+func TestCreateExampleFiles(t *testing.T) {
+	GenerateExampleFiles()
+
+	if _, err := os.Stat("example.txt"); err == nil {
 	} else {
 		t.Error("Error, unable to create logfile", err)
 	}
@@ -36,6 +46,7 @@ func TestLogProcessStart(t *testing.T) {
 
 	LogProcessStart(data, fileName)
 
+	// TODO: Check if file is there to complete the test
 	testCleanup()
 }
 
@@ -62,15 +73,16 @@ func TestLoggingMultipleStartProcesses(t *testing.T) {
 
 	LogProcessStart(data2, fileName)
 
+	// TODO: check if the files are there to complete the test
+	// TODO: testCleanup(filename) is needed to ensure cleanups work
+	// properly
+
 	testCleanup()
 }
 
 // Clean up log_test.json file
 // after every test run
 func testCleanup() {
-	e := os.Remove("log_test.json")
-
-	if e != nil {
-		log.Fatal(e)
-	}
+	os.Remove("log_test.json")
+	os.Remove("example.txt")
 }
