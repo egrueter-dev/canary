@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -20,6 +21,30 @@ import (
 func main() {
 	// Start by generating the empty log file
 	GenerateLogFile("logfile.json")
+
+	// Pull command Line Arguments
+	// if multiple args are passed,
+	// reject
+	argsWithoutProg := os.Args[1:]
+
+	fmt.Println("ARgs:")
+	fmt.Println(argsWithoutProg[0])
+
+	firstArg := argsWithoutProg[0]
+
+	switch firstArg {
+	case "-list":
+		fmt.Println("list commands")
+	}
+
+	// switch i {
+	// case 1:
+	//     fmt.Println("one")
+	// case 2:
+	//     fmt.Println("two")
+	// case 3:
+	//     fmt.Println("three")
+	// }
 
 	// Log Process Start if argument is run
 	//
@@ -71,14 +96,10 @@ func LogProcessStart(event ProcessStartEvent, filename string) {
 	json.Unmarshal(byteValue, &logFile)
 
 	// Append new data to Processstarts
-	// TODO: might be able to remove ProcessStarts?
 	logFile.ProcessStarts = append(logFile.ProcessStarts, event)
 
-	// Convert back into JSON file is there a better way?
 	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
 	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
-
-	// todo: make process start even external
 }
 
 //// CORE FUNCTIONALITY
