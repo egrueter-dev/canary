@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"os"
 )
@@ -50,7 +52,23 @@ func GenerateLogFile(filename string) {
 		log.Fatal(err)
 	}
 
+	// Create empty struct
+	f1 := make([]ProcessStartEvent, 0)
+
+	data := LogFile{
+		f1,
+	}
+
+	jsonFile, _ := json.MarshalIndent(data, "", " ")
+
+	_ = ioutil.WriteFile(file, jsonFile, 0644)
+
 	f.Close()
+}
+
+func LogProcessStart(event ProcessStartEvent, filename string) {
+	// todo: make process start even external
+
 }
 
 //// CORE FUNCTIONALITY

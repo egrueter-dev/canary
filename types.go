@@ -7,3 +7,7 @@ type ProcessStartEvent struct {
 	ProcessId                          int
 	Timestamp                          time.Time
 }
+
+type LogFile struct {
+	ProcesStarts []ProcessStartEvent
+}
