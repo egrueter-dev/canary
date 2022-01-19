@@ -1,0 +1,18 @@
+{
+ "ProcessStarts": [
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "StartProcess",
+   "CommandLine": "-start-process",
+   "ProcessId": 85278,
+   "Timestamp": "2022-01-19T12:24:06.595764-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "StartProcess",
+   "CommandLine": "-start-process",
+   "ProcessId": 85304,
+   "Timestamp": "2022-01-19T12:24:26.989422-05:00"
+  }
+ ]
+}

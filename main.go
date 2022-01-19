@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"os/user"
+	"time"
 )
 
 // Commands
@@ -19,35 +21,50 @@ import (
 
 // TODO: Testing should not create another log.json
 func main() {
-	// Start by generating the empty log file
-	GenerateLogFile("logfile.json")
-
 	// Pull command Line Arguments
 	// if multiple args are passed,
 	// reject
 	argsWithoutProg := os.Args[1:]
 
-	fmt.Println("ARgs:")
-	fmt.Println(argsWithoutProg[0])
-
 	firstArg := argsWithoutProg[0]
 
 	switch firstArg {
 	case "-list":
-		fmt.Println("list commands")
+		const list = `
+		-list          - List available commands
+		-setup 		   - Generate logfile
+		-start-process - filepath 
+		-modify 	   - filepath 
+		`
+
+		fmt.Println(list)
+	case "-setup":
+		fmt.Println("Generating Log File ")
+		GenerateLogFile("log.json")
+
+	case "-start-process":
+		user, err := user.Current()
+
+		if err != nil {
+			log.Fatalf(err.Error())
+		}
+
+		fmt.Println("Args:")
+		fmt.Println(argsWithoutProg)
+
+		// Todo: Log process ID
+		data := ProcessStartEvent{
+			UserName:    user.Name,
+			ProcessName: "StartProcess",
+			ProcessId:   os.Getpid(),
+			CommandLine: "-start-process",
+			Timestamp:   time.Now(),
+		}
+
+		LogProcessStart(data, "log.json")
+
+		fmt.Println("start process")
 	}
-
-	// switch i {
-	// case 1:
-	//     fmt.Println("one")
-	// case 2:
-	//     fmt.Println("two")
-	// case 3:
-	//     fmt.Println("three")
-	// }
-
-	// Log Process Start if argument is run
-	//
 
 	// Log Process start
 	// log process ID

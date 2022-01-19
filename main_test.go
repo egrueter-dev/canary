@@ -22,22 +22,22 @@ func TestGenerateLogFile(t *testing.T) {
 
 // Tests the user can write a new process
 // to the test_log.json file
-// func TestLogProcessStart(t *testing.T) {
-// 	fileName := "log_test.json"
+func TestLogProcessStart(t *testing.T) {
+	fileName := "log_test.json"
 
-// 	GenerateLogFile(fileName)
+	GenerateLogFile(fileName)
 
-// 	data := ProcessStartEvent{
-// 		UserName:    "Rico",
-// 		ProcessName: "ProcessStarted",
-// 		CommandLine: "--arg",
-// 		Timestamp:   time.Now(),
-// 	}
+	data := ProcessStartEvent{
+		UserName:    "Rico",
+		ProcessName: "ProcessStarted",
+		CommandLine: "--arg",
+		Timestamp:   time.Now(),
+	}
 
-// 	LogProcessStart(data, fileName)
+	LogProcessStart(data, fileName)
 
-// 	testCleanup()
-// }
+	testCleanup()
+}
 
 func TestLoggingMultipleStartProcesses(t *testing.T) {
 	fileName := "log_test.json"
@@ -62,7 +62,7 @@ func TestLoggingMultipleStartProcesses(t *testing.T) {
 
 	LogProcessStart(data2, fileName)
 
-	// testCleanup()
+	testCleanup()
 }
 
 // Clean up log_test.json file
@@ -74,24 +74,3 @@ func testCleanup() {
 		log.Fatal(e)
 	}
 }
-
-// func Count(r io.Reader) (int, error) {
-// 	dec := json.NewDecoder(r)
-
-// 	count := 0
-
-// 	for {
-// 		t, err := dec.Token()
-// 		if err == io.EOF {
-// 			break
-// 		}
-// 		if err != nil {
-// 			return -1, err
-// 		}
-// 		switch t {
-// 		case json.Delim('{'):
-// 			count++
-// 		}
-// 	}
-// 	return count, nil
-// }
