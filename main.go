@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -67,17 +66,17 @@ func GenerateLogFile(file string) {
 func LogProcessStart(event ProcessStartEvent, filename string) {
 	logFile := LogFile{}
 
-	fmt.Println(filename)
-
-	json.Unmarshal([]byte(filename), LogFile{})
+	jsonFile, _ := os.Open(filename)
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	json.Unmarshal(byteValue, &logFile)
 
 	// Append new data to Processstarts
 	// TODO: might be able to remove ProcessStarts?
 	logFile.ProcessStarts = append(logFile.ProcessStarts, event)
 
 	// Convert back into JSON file is there a better way?
-	jsonFile, _ := json.MarshalIndent(logFile, "", " ")
-	_ = ioutil.WriteFile(filename, jsonFile, 0644)
+	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
+	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
 
 	// todo: make process start even external
 }

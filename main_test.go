@@ -22,7 +22,24 @@ func TestGenerateLogFile(t *testing.T) {
 
 // Tests the user can write a new process
 // to the test_log.json file
-func TestLogProcessStart(t *testing.T) {
+// func TestLogProcessStart(t *testing.T) {
+// 	fileName := "log_test.json"
+
+// 	GenerateLogFile(fileName)
+
+// 	data := ProcessStartEvent{
+// 		UserName:    "Rico",
+// 		ProcessName: "ProcessStarted",
+// 		CommandLine: "--arg",
+// 		Timestamp:   time.Now(),
+// 	}
+
+// 	LogProcessStart(data, fileName)
+
+// 	testCleanup()
+// }
+
+func TestLoggingMultipleStartProcesses(t *testing.T) {
 	fileName := "log_test.json"
 
 	GenerateLogFile(fileName)
@@ -36,28 +53,17 @@ func TestLogProcessStart(t *testing.T) {
 
 	LogProcessStart(data, fileName)
 
-	// 	testCleanup()
+	data2 := ProcessStartEvent{
+		UserName:    "Rico2",
+		ProcessName: "ProcessStarted",
+		CommandLine: "--arg",
+		Timestamp:   time.Now(),
+	}
+
+	LogProcessStart(data2, fileName)
+
+	// testCleanup()
 }
-
-// func TestLoggingMultipleProcesses(t *testing.T) {
-// 	GenerateLogFile("log_test")
-
-// 	data := ProcessStartEvent{
-// 		UserName:    "Rico",
-// 		ProcessName: "ProcessStarted",
-// 		CommandLine: "--arg",
-// 		Timestamp:   time.Now(),
-// 	}
-
-// 	data2 := ProcessStartEvent{
-// 		UserName:    "Rico2",
-// 		ProcessName: "ProcessStarted2",
-// 		CommandLine: "--arg",
-// 		ProcessId:   0,
-// 		Timestamp:   time.Now(),
-// 	}
-// 	// testCleanup()
-// }
 
 // Clean up log_test.json file
 // after every test run
