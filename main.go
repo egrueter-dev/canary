@@ -6,7 +6,9 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
 	"os/user"
+	"strings"
 	"time"
 )
 
@@ -112,8 +114,27 @@ func LogProcessStart(event ProcessStartEvent, filename string) {
 	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
 }
 
-func ProcessStart() {
+func ProcessStart(path string, arguments []string) {
+	cmd := exec.Command(
+		path, arguments...,
+	)
 
+	fmt.Println("path:")
+	fmt.Println(path)
+
+	fmt.Println("strings ")
+
+	fmt.Println(
+		strings.Join(arguments[:], " "),
+	)
+
+	fmt.Println(
+		cmd.Start(),
+	) // and wait
+
+	log.Printf("Waiting for command to finish...")
+	log.Printf("Process id is %v", cmd.Process.Pid)
+	cmd.Wait()
 }
 
 //// CORE FUNCTIONALITY

@@ -51,8 +51,11 @@ func TestLogProcessStart(t *testing.T) {
 }
 
 func TestProcessStart(t *testing.T) {
-	args := [3]string{"--a", "--b", "--c"}
-	ProcessStart()
+	args := []string{"--a", "--b", "--c"}
+	// path := "./example_executables/example_executable"
+	path := "example_executables/example_executable"
+	ProcessStart(path, args)
+	t.Error("Incomplete process start")
 	// Process
 }
 
