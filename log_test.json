@@ -1,3 +1,11 @@
 {
- "ProcessStarts": []
+ "ProcessStarts": [
+  {
+   "UserName": "Rico",
+   "ProcessName": "ProcessStarted",
+   "CommandLine": "--arg",
+   "ProcessId": 0,
+   "Timestamp": "2022-01-18T21:15:48.177397-05:00"
+  }
+ ]
 }

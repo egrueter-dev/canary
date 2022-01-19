@@ -20,7 +20,7 @@ import (
 // TODO: Testing should not create another log.json
 func main() {
 	// Start by generating the empty log file
-	GenerateLogFile("logfile")
+	GenerateLogFile("logfile.json")
 
 	// Log Process Start if argument is run
 	//
@@ -42,9 +42,7 @@ func main() {
 	// fmt.Println(os.Getpid())
 }
 
-func GenerateLogFile(filename string) {
-	// If the file doesn't exist, create it, or append to the file
-	file := filename + ".json"
+func GenerateLogFile(file string) {
 
 	f, err := os.OpenFile(file, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 
@@ -67,19 +65,21 @@ func GenerateLogFile(filename string) {
 }
 
 func LogProcessStart(event ProcessStartEvent, filename string) {
-
 	logFile := LogFile{}
+
+	fmt.Println(filename)
 
 	json.Unmarshal([]byte(filename), LogFile{})
 
-	fmt.Println(logFile)
-
+	// Append new data to Processstarts
+	// TODO: might be able to remove ProcessStarts?
 	logFile.ProcessStarts = append(logFile.ProcessStarts, event)
 
-	fmt.Println(logFile)
+	// Convert back into JSON file is there a better way?
+	jsonFile, _ := json.MarshalIndent(logFile, "", " ")
+	_ = ioutil.WriteFile(filename, jsonFile, 0644)
 
 	// todo: make process start even external
-
 }
 
 //// CORE FUNCTIONALITY

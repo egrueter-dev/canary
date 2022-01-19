@@ -8,7 +8,7 @@ import (
 )
 
 func TestGenerateLogFile(t *testing.T) {
-	GenerateLogFile("log_test")
+	GenerateLogFile("log_test.json")
 
 	if _, err := os.Stat("log_test.json"); err == nil {
 	} else {
@@ -23,7 +23,7 @@ func TestGenerateLogFile(t *testing.T) {
 // Tests the user can write a new process
 // to the test_log.json file
 func TestLogProcessStart(t *testing.T) {
-	fileName := "log_test"
+	fileName := "log_test.json"
 
 	GenerateLogFile(fileName)
 
