@@ -71,17 +71,14 @@ func main() {
 			log.Fatalf(err.Error())
 		}
 
-		// TODO: Remove
-		fmt.Println("Args:")
-		fmt.Println(argsWithoutProg)
-		path := argsWithoutProg[1]
+		filePath := argsWithoutProg[1]
 
 		data2 := FileChangeEvent{
 			UserName:    user.Name,
 			ProcessName: "FileCreated",
 			ProcessId:   os.Getpid(),
 			CommandLine: "--create",
-			FilePath:    path,
+			FilePath:    filePath,
 			Descriptor:  "create",
 			Timestamp:   time.Now(),
 		}
@@ -89,9 +86,31 @@ func main() {
 		// TODO: LOG.json is a constant value in produciton, can
 		// make it a constant
 		LogFileChange(data2, "log.json")
-		CreateFile(path)
+		CreateFile(filePath)
 	case "-delete":
+		fmt.Println("Args:")
+		fmt.Println(argsWithoutProg)
 
+		user, err := user.Current()
+
+		if err != nil {
+			log.Fatalf(err.Error())
+		}
+
+		filePath := argsWithoutProg[1]
+
+		data2 := FileChangeEvent{
+			UserName:    user.Name,
+			ProcessName: "FileDeleted",
+			ProcessId:   os.Getpid(),
+			CommandLine: "-delete",
+			FilePath:    filePath,
+			Descriptor:  "delete",
+			Timestamp:   time.Now(),
+		}
+
+		LogFileChange(data2, "log.json")
+		DeleteFile((filePath))
 	}
 }
 
@@ -187,6 +206,12 @@ func CreateFile(path string) {
 		panic(err)
 	}
 	os.Create(path)
+}
+
+func DeleteFile(path string) {
+	if err := os.RemoveAll(filepath.Dir(path)); err != nil {
+		panic(err)
+	}
 }
 
 //// CORE FUNCTIONALITY

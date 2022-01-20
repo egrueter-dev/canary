@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"os"
 	"testing"
 	"time"
@@ -39,6 +40,24 @@ func TestCreateFile(t *testing.T) {
 	if _, err := os.Stat("./test_path/file.json"); err == nil {
 	} else {
 		t.Error("Error, file not being created", err)
+	}
+
+	testCleanup()
+}
+
+func TestDeleteFile(t *testing.T) {
+	filepath := "./test_path/file.json"
+
+	// Create file so it can be deleted
+	CreateFile(filepath)
+
+	DeleteFile(filepath)
+
+	_, err := os.Open(filepath)
+
+	if errors.Is(err, os.ErrNotExist) {
+	} else {
+		t.Error("File was not successfully deleted")
 	}
 
 	testCleanup()

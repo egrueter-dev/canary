@@ -1,47 +1,23 @@
 {
- "ProcessStarts": [
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "StartProcess",
-   "CommandLine": "-start-process",
-   "ProcessId": 12236,
-   "Timestamp": "2022-01-19T19:26:30.150515-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "StartProcess",
-   "CommandLine": "-start-process",
-   "ProcessId": 12302,
-   "Timestamp": "2022-01-19T19:26:56.627637-05:00"
-  }
- ],
+ "ProcessStarts": [],
  "FileChangeEvents": [
   {
    "UserName": "Erik Grueter",
-   "FilePath": "users/egrueter/exec",
+   "FilePath": "./test_path/file.json",
    "Descriptor": "create",
    "ProcessName": "FileCreated",
    "CommandLine": "--create",
-   "ProcessId": 12133,
-   "Timestamp": "2022-01-19T19:25:03.445365-05:00"
+   "ProcessId": 18944,
+   "Timestamp": "2022-01-19T20:34:48.87418-05:00"
   },
   {
    "UserName": "Erik Grueter",
-   "FilePath": "users/egrueter/exec",
-   "Descriptor": "create",
-   "ProcessName": "FileCreated",
-   "CommandLine": "--create",
-   "ProcessId": 12315,
-   "Timestamp": "2022-01-19T19:27:06.077451-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "FilePath": "users/egrueter/exec",
-   "Descriptor": "create",
-   "ProcessName": "FileCreated",
-   "CommandLine": "--create",
-   "ProcessId": 16459,
-   "Timestamp": "2022-01-19T20:15:23.127929-05:00"
+   "FilePath": "./test_path/file.json",
+   "Descriptor": "delete",
+   "ProcessName": "FileDeleted",
+   "CommandLine": "-delete",
+   "ProcessId": 18957,
+   "Timestamp": "2022-01-19T20:35:00.159247-05:00"
   }
  ]
 }
