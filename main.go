@@ -23,11 +23,11 @@ import (
 
 func main() {
 	// Pull command Line Arguments
-	// if multiple args are passed,
-	// reject
 	argsWithoutProg := os.Args[1:]
 
 	firstArg := argsWithoutProg[0]
+
+	// TODO: handle case where no args are present..
 
 	switch firstArg {
 	case "-list":
@@ -52,10 +52,6 @@ func main() {
 		if err != nil {
 			log.Fatalf(err.Error())
 		}
-
-		fmt.Println("Args:")
-		fmt.Println(argsWithoutProg)
-
 		// Todo: Log process ID
 		data := ProcessStartEvent{
 			UserName:    user.Name,
@@ -66,11 +62,32 @@ func main() {
 		}
 
 		LogProcessStart(data, "log.json")
-
-		fmt.Println("start process")
+		// Actually start process here
 	case "-create":
-		// LogFileCreation()
+		user, err := user.Current()
 
+		if err != nil {
+			log.Fatalf(err.Error())
+		}
+
+		fmt.Println("Args:")
+		fmt.Println(argsWithoutProg)
+
+		// TODO: Use actual data supplied in Args
+		data2 := FileChangeEvent{
+			UserName:    user.Name,
+			ProcessName: "FileCreated",
+			ProcessId:   os.Getpid(),
+			CommandLine: "--create",
+			FilePath:    "users/egrueter/exec",
+			Descriptor:  "create",
+			Timestamp:   time.Now(),
+		}
+
+		// TODO: LOG.json is a constant value in produciton
+		LogFileChange(data2, "log.json")
+
+		// Actually Create File here
 	}
 }
 

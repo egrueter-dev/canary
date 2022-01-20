@@ -120,7 +120,7 @@ func TestLogFileChange(t *testing.T) {
 	}
 
 	LogFileChange(data2, fileName)
-	// testCleanup
+	testCleanup()
 }
 
 // Clean up log_test.json file
