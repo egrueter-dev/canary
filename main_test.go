@@ -6,6 +6,9 @@ import (
 	"time"
 )
 
+// TODO: Breat up teests into logging
+// And actual functionality
+
 func TestGenerateLogFile(t *testing.T) {
 	GenerateLogFile("log_test.json")
 
@@ -29,7 +32,6 @@ func TestCreateExampleFiles(t *testing.T) {
 }
 
 // TODO: Should we check for presence of file before writing?
-
 // Tests the user can write a new process
 // to the test_log.json file
 func TestLogProcessStart(t *testing.T) {
@@ -87,6 +89,38 @@ func TestLoggingMultipleStartProcesses(t *testing.T) {
 	// properly
 
 	testCleanup()
+}
+
+// TODO: Add test completion/failed scenarios
+func TestLogFileChange(t *testing.T) {
+	fileName := "log_test.json"
+
+	GenerateLogFile(fileName)
+
+	data := FileChangeEvent{
+		UserName:    "Rico2",
+		FilePath:    "users/egrueter/exec",
+		Descriptor:  "create",
+		ProcessName: "FileCreated",
+		CommandLine: "--create",
+		ProcessId:   123,
+		Timestamp:   time.Now(),
+	}
+
+	LogFileChange(data, fileName)
+
+	data2 := FileChangeEvent{
+		UserName:    "Rico3",
+		FilePath:    "users/egrueter/exec",
+		Descriptor:  "delete",
+		ProcessName: "FileCreated",
+		CommandLine: "--create",
+		ProcessId:   123,
+		Timestamp:   time.Now(),
+	}
+
+	LogFileChange(data2, fileName)
+	// testCleanup
 }
 
 // Clean up log_test.json file

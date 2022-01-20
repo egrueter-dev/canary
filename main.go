@@ -32,10 +32,12 @@ func main() {
 	switch firstArg {
 	case "-list":
 		const list = `
-		-list          - List available commands
-		-setup 		   - Generate logfile
-		-start-process - filepath 
-		-modify 	   - filepath 
+		Available Commands:
+		-list - List available commands
+		-setup - Generate logfile
+		-create [filetype, path] - Create specific file
+		-start-process [filepath, args] - Execute binary
+		-modify [filepath, text]
 		`
 
 		fmt.Println(list)
@@ -66,6 +68,9 @@ func main() {
 		LogProcessStart(data, "log.json")
 
 		fmt.Println("start process")
+	case "-create":
+		// LogFileCreation()
+
 	}
 }
 
@@ -87,10 +92,13 @@ func GenerateLogFile(file string) {
 	}
 
 	// Create empty struct
-	f1 := make([]ProcessStartEvent, 0)
+	processStart := make([]ProcessStartEvent, 0)
+
+	fileChange := make([]FileChangeEvent, 0)
 
 	data := LogFile{
-		f1,
+		processStart,
+		fileChange,
 	}
 
 	jsonFile, _ := json.MarshalIndent(data, "", " ")
@@ -107,13 +115,28 @@ func LogProcessStart(event ProcessStartEvent, filename string) {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &logFile)
 
-	// Append new data to Processstarts
+	// Append new data to Process starts
 	logFile.ProcessStarts = append(logFile.ProcessStarts, event)
 
 	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
 	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
 }
 
+func LogFileChange(event FileChangeEvent, filename string) {
+	logFile := LogFile{}
+
+	jsonFile, _ := os.Open(filename)
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	json.Unmarshal(byteValue, &logFile)
+
+	// Append new data to file changes
+	logFile.FileChangeEvents = append(logFile.FileChangeEvents, event)
+
+	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
+	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
+}
+
+// TODO: Should this be Run Process
 func ProcessStart(path string, arguments []string) {
 	cmd := exec.Command(
 		path, arguments...,
@@ -138,17 +161,6 @@ func ProcessStart(path string, arguments []string) {
 }
 
 //// CORE FUNCTIONALITY
-
-/// Start Process
-//  startProcess(path_to_file, args)
-
-/// createFile(location)
-
-/// modifyFile() // look up path to modify
-
-/// deleteFile() // path to delete
-
-// transmitLogs() // Establish a network connection and transmit data
 
 /// LOGGING
 

@@ -1,0 +1,23 @@
+{
+ "ProcessStarts": [],
+ "FileChangeEvents": [
+  {
+   "UserName": "Rico2",
+   "FilePath": "users/egrueter/exec",
+   "Descriptor": "create",
+   "ProcessName": "FileCreated",
+   "CommandLine": "--create",
+   "ProcessId": 123,
+   "Timestamp": "2022-01-19T19:16:24.387238-05:00"
+  },
+  {
+   "UserName": "Rico3",
+   "FilePath": "users/egrueter/exec",
+   "Descriptor": "delete",
+   "ProcessName": "FileCreated",
+   "CommandLine": "--create",
+   "ProcessId": 123,
+   "Timestamp": "2022-01-19T19:16:24.38741-05:00"
+  }
+ ]
+}
