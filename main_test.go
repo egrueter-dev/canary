@@ -141,5 +141,5 @@ func TestLogFileChange(t *testing.T) {
 func testCleanup() {
 	os.Remove("log_test.json")
 	os.Remove("example.txt")
-	os.RemoveAll("./test_path/file.json")
+	os.RemoveAll("./test_path/")
 }

@@ -33,6 +33,15 @@
    "CommandLine": "--create",
    "ProcessId": 12315,
    "Timestamp": "2022-01-19T19:27:06.077451-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "FilePath": "users/egrueter/exec",
+   "Descriptor": "create",
+   "ProcessName": "FileCreated",
+   "CommandLine": "--create",
+   "ProcessId": 16459,
+   "Timestamp": "2022-01-19T20:15:23.127929-05:00"
   }
  ]
 }

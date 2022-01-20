@@ -29,7 +29,6 @@ func main() {
 	firstArg := argsWithoutProg[0]
 
 	// TODO: handle case where no args are present..
-
 	switch firstArg {
 	case "-list":
 		const list = `
@@ -72,24 +71,27 @@ func main() {
 			log.Fatalf(err.Error())
 		}
 
+		// TODO: Remove
 		fmt.Println("Args:")
 		fmt.Println(argsWithoutProg)
+		path := argsWithoutProg[1]
 
-		// TODO: Use actual data supplied in Args
 		data2 := FileChangeEvent{
 			UserName:    user.Name,
 			ProcessName: "FileCreated",
 			ProcessId:   os.Getpid(),
 			CommandLine: "--create",
-			FilePath:    "users/egrueter/exec",
+			FilePath:    path,
 			Descriptor:  "create",
 			Timestamp:   time.Now(),
 		}
 
-		// TODO: LOG.json is a constant value in produciton
+		// TODO: LOG.json is a constant value in produciton, can
+		// make it a constant
 		LogFileChange(data2, "log.json")
+		CreateFile(path)
+	case "-delete":
 
-		// Actually Create File here
 	}
 }
 
