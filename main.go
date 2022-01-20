@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"os/user"
+	"path/filepath"
 	"strings"
 	"time"
 )
@@ -44,6 +45,7 @@ func main() {
 	case "-setup":
 		fmt.Println("Generated Log File")
 		GenerateLogFile("log.json")
+
 		fmt.Println("Generated Example File")
 		GenerateExampleFiles()
 	case "-start-process":
@@ -52,7 +54,7 @@ func main() {
 		if err != nil {
 			log.Fatalf(err.Error())
 		}
-		// Todo: Log process ID
+
 		data := ProcessStartEvent{
 			UserName:    user.Name,
 			ProcessName: "StartProcess",
@@ -177,24 +179,18 @@ func ProcessStart(path string, arguments []string) {
 	cmd.Wait()
 }
 
+func CreateFile(path string) {
+	// Create directories for path to file with permissions
+	if err := os.MkdirAll(filepath.Dir(path), os.ModePerm); err != nil {
+		panic(err)
+	}
+	os.Create(path)
+}
+
 //// CORE FUNCTIONALITY
 
 /// LOGGING
 
-// * Process start
-//      Timestamp of start time
-//      Username that started the process
-//  	Process name
-//  	Process command line
-//  	Process ID
-// ● File creation, modification, deletion
-//    	Timestamp of activity
-//    	Full path to the file
-//    	Activity descriptor - e.g. create, modified, delete
-//    	Username that started the process that created/modified/deleted the file
-//    	Process name that created/modified/deleted the file
-//    	Process command line
-//    	Process ID
 // ● Network connection and data transmission
 //      Timestamp of activity
 //      Username that started the process that initiated the network activity

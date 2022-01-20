@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-// TODO: Breat up teests into logging
-// And actual functionality
+// TODO: Break up teests into logging
+// ... And actual functionality (main.go)
 
 func TestGenerateLogFile(t *testing.T) {
 	GenerateLogFile("log_test.json")
@@ -26,6 +26,19 @@ func TestCreateExampleFiles(t *testing.T) {
 	if _, err := os.Stat("example.txt"); err == nil {
 	} else {
 		t.Error("Error, unable to create logfile", err)
+	}
+
+	testCleanup()
+}
+
+func TestCreateFile(t *testing.T) {
+	filepath := "./test_path/file.json"
+
+	CreateFile(filepath)
+
+	if _, err := os.Stat("./test_path/file.json"); err == nil {
+	} else {
+		t.Error("Error, file not being created", err)
 	}
 
 	testCleanup()
@@ -128,4 +141,5 @@ func TestLogFileChange(t *testing.T) {
 func testCleanup() {
 	os.Remove("log_test.json")
 	os.Remove("example.txt")
+	os.RemoveAll("./test_path/file.json")
 }
