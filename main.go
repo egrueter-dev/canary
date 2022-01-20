@@ -36,6 +36,8 @@ func main() {
 		-list - List available commands
 		-setup - Generate logfile
 		-create [filetype, path] - Create specific file
+		-delete [path] - Delete specific file
+		-send-data []
 		-start-process [filepath, args] - Execute binary
 		-modify [filepath, text]
 		`
@@ -65,6 +67,7 @@ func main() {
 		LogProcessStart(data, "log.json")
 		// Actually start process here
 	case "-create":
+		// TODO: Internal Methods here?
 		user, err := user.Current()
 
 		if err != nil {
@@ -111,6 +114,8 @@ func main() {
 
 		LogFileChange(data2, "log.json")
 		DeleteFile((filePath))
+	case "":
+
 	}
 }
 
@@ -133,12 +138,13 @@ func GenerateLogFile(file string) {
 
 	// Create empty struct
 	processStart := make([]ProcessStartEvent, 0)
-
 	fileChange := make([]FileChangeEvent, 0)
+	networkRequest := make([]NetworkRequestEvent, 0)
 
 	data := LogFile{
 		processStart,
 		fileChange,
+		networkRequest,
 	}
 
 	jsonFile, _ := json.MarshalIndent(data, "", " ")
@@ -171,6 +177,20 @@ func LogFileChange(event FileChangeEvent, filename string) {
 
 	// Append new data to file changes
 	logFile.FileChangeEvents = append(logFile.FileChangeEvents, event)
+
+	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
+	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
+}
+
+func LogNetworkRequest(event NetworkRequestEvent, filename string) {
+	logFile := LogFile{}
+
+	jsonFile, _ := os.Open(filename)
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	json.Unmarshal(byteValue, &logFile)
+
+	// Append new data to file changes
+	logFile.NetworkRequestEvents = append(logFile.NetworkRequestEvents, event)
 
 	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
 	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)

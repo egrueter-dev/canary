@@ -17,7 +17,19 @@ type FileChangeEvent struct {
 	Timestamp                      time.Time
 }
 
+type NetworkRequestEvent struct {
+	UserName                            string
+	ProcessName, CommandLine            string
+	Protocol                            string
+	DestinationAddress, DestinationPort string
+	SourceAddress, SourcePort           string
+	ProcessId                           int
+	DataAmount                          int
+	Timestamp                           time.Time
+}
+
 type LogFile struct {
-	ProcessStarts    []ProcessStartEvent
-	FileChangeEvents []FileChangeEvent
+	ProcessStarts        []ProcessStartEvent
+	FileChangeEvents     []FileChangeEvent
+	NetworkRequestEvents []NetworkRequestEvent
 }

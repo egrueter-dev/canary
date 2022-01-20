@@ -63,6 +63,27 @@ func TestDeleteFile(t *testing.T) {
 	testCleanup()
 }
 
+func TestLogNetworkRequest(t *testing.T) {
+	fileName := "log_test.json"
+
+	GenerateLogFile(fileName)
+
+	data := NetworkRequestEvent{
+		UserName:           "Rico",
+		ProcessName:        "NetworkRequest",
+		CommandLine:        "NetworkRequest",
+		Protocol:           "HTTP",
+		DestinationAddress: "server.com",
+		DestinationPort:    "80",
+		SourceAddress:      "localhost",
+		SourcePort:         "8080",
+		DataAmount:         10, // MB
+		Timestamp:          time.Now(),
+	}
+
+	LogNetworkRequest(data, fileName)
+}
+
 // TODO: Should we check for presence of file before writing?
 // Tests the user can write a new process
 // to the test_log.json file
