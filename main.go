@@ -202,6 +202,7 @@ func DeleteFile(path string) {
 	}
 }
 
+// Modify files by adding text. works for .txt files only
 func ModifyFile(path string, text string) {
 	file, err := os.OpenFile(
 		path,
