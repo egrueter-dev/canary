@@ -1,0 +1,84 @@
+{
+ "ProcessStarts": null,
+ "FileChangeEvents": null,
+ "NetworkRequestEvents": [
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "",
+   "DestinationPort": "80",
+   "SourceAddress": "localhost",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 10,
+   "Timestamp": "2022-01-20T19:31:36.760018-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "",
+   "DestinationPort": "80",
+   "SourceAddress": "localhost",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 10,
+   "Timestamp": "2022-01-20T19:32:04.378219-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "",
+   "DestinationPort": "80",
+   "SourceAddress": "localhost",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 10,
+   "Timestamp": "2022-01-20T19:32:23.216962-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "",
+   "DestinationPort": "80",
+   "SourceAddress": "localhost",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 10,
+   "Timestamp": "2022-01-20T19:33:13.32601-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "",
+   "DestinationPort": "80",
+   "SourceAddress": "localhost",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 10,
+   "Timestamp": "2022-01-20T19:34:10.446712-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "",
+   "DestinationPort": "80",
+   "SourceAddress": "localhost",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 10,
+   "Timestamp": "2022-01-20T19:34:56.965794-05:00"
+  }
+ ]
+}

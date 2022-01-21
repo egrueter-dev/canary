@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 	"os/user"
@@ -37,7 +39,7 @@ func main() {
 		-setup - Generate logfile
 		-create [filetype, path] - Create specific file
 		-delete [path] - Delete specific file
-		-send-data []
+		-send-data [destination]
 		-start-process [filepath, args] - Execute binary
 		-modify [filepath, text]
 		`
@@ -114,8 +116,31 @@ func main() {
 
 		LogFileChange(data2, "log.json")
 		DeleteFile((filePath))
-	case "":
+	case "-send-data":
+		user, err := user.Current()
 
+		if err != nil {
+			log.Fatalf(err.Error())
+		}
+
+		destination := "https://private-anon-6f9facff1e-restapi3.apiary-mock.com/notes"
+
+		// This should be updated after the request is
+		// Actually made
+		data := NetworkRequestEvent{
+			UserName:           user.Name,
+			ProcessName:        "NetworkRequest",
+			CommandLine:        "-send-data",
+			Protocol:           "HTTP", // TODO: This could be an alternative
+			DestinationAddress: destination,
+			DestinationPort:    "?",
+			SourceAddress:      "localhost", //?
+			SourcePort:         "8080",      // ?>
+			DataAmount:         10,          // get the size of the JSON file
+			Timestamp:          time.Now(),
+		}
+		LogNetworkRequest(data, "log.json")
+		NetworkRequest()
 	}
 }
 
@@ -129,7 +154,6 @@ func GenerateExampleFiles() {
 }
 
 func GenerateLogFile(file string) {
-
 	f, err := os.OpenFile(file, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 
 	if err != nil {
@@ -234,17 +258,40 @@ func DeleteFile(path string) {
 	}
 }
 
-//// CORE FUNCTIONALITY
+// Send Log Data in Network Request
+func NetworkRequest() {
+	url := "https://private-anon-6f9facff1e-restapi3.apiary-mock.com/notes"
+	fmt.Println("URL:>", url)
 
-/// LOGGING
+	jsonFile, err := os.Open("log.json")
+	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-// ● Network connection and data transmission
-//      Timestamp of activity
-//      Username that started the process that initiated the network activity
-//      Destination address and port
-//      Source address and port
-//      Amount of data sent
-//      Protocol of data sent
-//      Process name
-//      Process command line
-//      Process ID
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// Sent byte value of JSON
+	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(byteValue))
+
+	req.Header.Set("X-Custom-Header", "myvalue")
+
+	req.Header.Set("Content-Type", "application/json")
+
+	fmt.Println(req.Body)
+
+	client := &http.Client{}
+
+	resp, err := client.Do(req)
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer resp.Body.Close()
+
+	fmt.Println("response Status:", resp.Status)
+	fmt.Println("response Headers:", resp.Header)
+
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("response Body:", string(body))
+}

@@ -80,8 +80,10 @@ func TestLogNetworkRequest(t *testing.T) {
 		DataAmount:         10, // MB
 		Timestamp:          time.Now(),
 	}
-
+	// TODO: you could check for the presence of the log in the JSON file..
+	// This applies to other logging functions as well
 	LogNetworkRequest(data, fileName)
+	testCleanup()
 }
 
 // TODO: Should we check for presence of file before writing?
