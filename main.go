@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-	"os/user"
 	"path/filepath"
 	"strings"
 	"time"
@@ -63,14 +62,8 @@ func main() {
 		fmt.Println("Generated Example File")
 		GenerateExampleFiles()
 	case "-start-process":
-		user, err := user.Current()
-
-		if err != nil {
-			log.Fatalf(err.Error())
-		}
-
 		data := ProcessStartEvent{
-			UserName:    user.Name,
+			UserName:    fetchUserName(),
 			ProcessName: "StartProcess",
 			ProcessId:   os.Getpid(),
 			CommandLine: "-start-process",
@@ -80,17 +73,10 @@ func main() {
 		LogProcessStart(data, LogFileName)
 		// Actually start process here
 	case "-create":
-		// TODO: Internal Methods here?
-		user, err := user.Current()
-
-		if err != nil {
-			log.Fatalf(err.Error())
-		}
-
 		filePath := argsWithoutProg[1]
 
 		data := FileChangeEvent{
-			UserName:    user.Name,
+			UserName:    fetchUserName(),
 			ProcessName: "FileCreated",
 			ProcessId:   os.Getpid(),
 			CommandLine: "--create",
@@ -102,19 +88,10 @@ func main() {
 		LogFileChange(data, LogFileName)
 		CreateFile(filePath)
 	case "-delete":
-		fmt.Println("Args:")
-		fmt.Println(argsWithoutProg)
-
-		user, err := user.Current()
-
-		if err != nil {
-			log.Fatalf(err.Error())
-		}
-
 		filePath := argsWithoutProg[1]
 
-		data2 := FileChangeEvent{
-			UserName:    user.Name,
+		data := FileChangeEvent{
+			UserName:    fetchUserName(),
 			ProcessName: "FileDeleted",
 			ProcessId:   os.Getpid(),
 			CommandLine: "-delete",
@@ -123,7 +100,7 @@ func main() {
 			Timestamp:   time.Now(),
 		}
 
-		LogFileChange(data2, LogFileName)
+		LogFileChange(data, LogFileName)
 		DeleteFile((filePath))
 	case "-send-data":
 		destination := "https://private-anon-6f9facff1e-restapi3.apiary-mock.com/notes"
@@ -133,6 +110,20 @@ func main() {
 
 		NetworkRequest(destination)
 	case "-modify":
+		fmt.Println("Args:")
+		fmt.Println(argsWithoutProg)
+
+		data := FileChangeEvent{
+			UserName:    fetchUserName(),
+			ProcessName: "FileModified",
+			ProcessId:   os.Getpid(),
+			CommandLine: "-delete",
+			FilePath:    filePath,
+			Descriptor:  "delete",
+			Timestamp:   time.Now(),
+		}
+
+		LogFileChange(data, LogFileName)
 		// File Path
 		// Text
 	}
@@ -235,14 +226,8 @@ func NetworkRequest(url string) {
 
 	defer resp.Body.Close()
 
-	user, err := user.Current()
-
-	if err != nil {
-		panic(err)
-	}
-
 	data := NetworkRequestEvent{
-		UserName:           user.Name,
+		UserName:           fetchUserName(),
 		ProcessName:        "NetworkRequest",
 		CommandLine:        "-send-data",
 		Protocol:           "HTTP",

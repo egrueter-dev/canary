@@ -4,7 +4,18 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"os/user"
 )
+
+func fetchUserName() string {
+	user, err := user.Current()
+
+	if err != nil {
+		panic(err)
+	}
+
+	return user.Name
+}
 
 // Gets the local IP request was made from
 func getLocalIP() string {
