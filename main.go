@@ -206,7 +206,7 @@ func LogNetworkRequest(event NetworkRequestEvent, filename string) {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &logFile)
 
-	// Append new data to file changes
+	// Append new data to network requests
 	logFile.NetworkRequestEvents = append(logFile.NetworkRequestEvents, event)
 
 	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
@@ -290,22 +290,20 @@ func NetworkRequest(url string) {
 		DestinationAddress: getRemoteIP(url),
 		DestinationPort:    "?",
 		SourceAddress:      getLocalIP(),
-		SourcePort:         "8080", // ?>
-		DataAmount:         10,     // get the size of the JSON file
+		SourcePort:         "8080",                 // ?>
+		DataAmount:         getFileSize(*jsonFile), // get the size of the JSON file
 		Timestamp:          time.Now(),
 	}
 	LogNetworkRequest(data, "log.json")
 }
 
-// Gets the local IP and Port request was made from
-// in theory..
+// Gets the local IP request was made from
 func getLocalIP() string {
 	conn, _ := net.Dial("udp", "8.8.8.8:80")
 	defer conn.Close()
 	return conn.LocalAddr().(*net.UDPAddr).String()
 }
 
-// TODO: set path
 // TODO: get port
 // https://github.com/golang/go/issues/16142
 func getRemoteIP(url string) string {
@@ -317,4 +315,18 @@ func getRemoteIP(url string) string {
 
 	fmt.Println("IPs: ", ips[1])
 	return ips[1].String()
+}
+
+func getFileSize(file os.File) int64 {
+	stat, err := file.Stat()
+
+	fileSize := stat.Size()
+
+	fileKb := (fileSize / 1024)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return fileKb
 }

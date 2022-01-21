@@ -24,7 +24,7 @@ type NetworkRequestEvent struct {
 	DestinationAddress, DestinationPort string
 	SourceAddress, SourcePort           string
 	ProcessId                           int
-	DataAmount                          int
+	DataAmount                          int64
 	Timestamp                           time.Time
 }
 
