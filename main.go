@@ -36,6 +36,8 @@ import (
 //           dig google.com MX
 // 	`)
 
+const LogFileName = "log.json"
+
 func main() {
 	// Pull command Line Arguments
 	argsWithoutProg := os.Args[1:]
@@ -44,7 +46,7 @@ func main() {
 	// TODO: handle case where no args are present..
 	switch firstArg {
 	case "-list":
-		const list = `
+		fmt.Println(`
 		Available Commands:
 		-list - List available commands
 		-setup - Generate logfile
@@ -53,12 +55,10 @@ func main() {
 		-send-data [destination]
 		-start-process [filepath, args] - Execute binary
 		-modify [filepath, text]
-		`
-
-		fmt.Println(list)
+		`)
 	case "-setup":
 		fmt.Println("Generated Log File")
-		GenerateLogFile("log.json")
+		GenerateLogFile(LogFileName)
 
 		fmt.Println("Generated Example File")
 		GenerateExampleFiles()
@@ -77,7 +77,7 @@ func main() {
 			Timestamp:   time.Now(),
 		}
 
-		LogProcessStart(data, "log.json")
+		LogProcessStart(data, LogFileName)
 		// Actually start process here
 	case "-create":
 		// TODO: Internal Methods here?
@@ -89,7 +89,7 @@ func main() {
 
 		filePath := argsWithoutProg[1]
 
-		data2 := FileChangeEvent{
+		data := FileChangeEvent{
 			UserName:    user.Name,
 			ProcessName: "FileCreated",
 			ProcessId:   os.Getpid(),
@@ -99,9 +99,7 @@ func main() {
 			Timestamp:   time.Now(),
 		}
 
-		// TODO: LOG.json is a constant value in produciton, can
-		// make it a constant
-		LogFileChange(data2, "log.json")
+		LogFileChange(data, LogFileName)
 		CreateFile(filePath)
 	case "-delete":
 		fmt.Println("Args:")
@@ -125,16 +123,18 @@ func main() {
 			Timestamp:   time.Now(),
 		}
 
-		LogFileChange(data2, "log.json")
+		LogFileChange(data2, LogFileName)
 		DeleteFile((filePath))
 	case "-send-data":
-
 		destination := "https://private-anon-6f9facff1e-restapi3.apiary-mock.com/notes"
 
 		// This should be updated after the request is
 		// Actually made
 
 		NetworkRequest(destination)
+	case "-modify":
+		// File Path
+		// Text
 	}
 }
 
@@ -212,7 +212,7 @@ func DeleteFile(path string) {
 
 // Send Log Data in Network Request
 func NetworkRequest(url string) {
-	jsonFile, err := os.Open("log.json")
+	jsonFile, err := os.Open(LogFileName)
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
 	if err != nil {
@@ -253,5 +253,5 @@ func NetworkRequest(url string) {
 		DataAmount:         getFileSize(*jsonFile), // get the size of the JSON file
 		Timestamp:          time.Now(),
 	}
-	LogNetworkRequest(data, "log.json")
+	LogNetworkRequest(data, LogFileName)
 }
