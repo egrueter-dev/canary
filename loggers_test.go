@@ -37,9 +37,6 @@ func TestLogNetworkRequest(t *testing.T) {
 	testCleanup()
 }
 
-// TODO: Should we check for presence of file before writing?
-// Tests the user can write a new process
-// to the test_log.json file
 func TestLogProcessStart(t *testing.T) {
 	fileName := "log_test.json"
 
@@ -64,7 +61,6 @@ func TestLogProcessStart(t *testing.T) {
 		t.Error("Error, processes not logged properly")
 	}
 
-	// TODO: Check if file is there to complete the test
 	testCleanup()
 }
 

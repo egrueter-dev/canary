@@ -2,7 +2,6 @@ package main
 
 import "time"
 
-// TODO: finish testing for types
 type ProcessStartEvent struct {
 	UserName, ProcessName, CommandLine string
 	ProcessId                          int
