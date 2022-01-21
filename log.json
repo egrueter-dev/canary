@@ -27,6 +27,13 @@
    "CommandLine": "-start-process",
    "ProcessId": 70117,
    "Timestamp": "2022-01-21T16:24:10.2832-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "StartProcess",
+   "CommandLine": "-start-process",
+   "ProcessId": 71002,
+   "Timestamp": "2022-01-21T16:50:11.95897-05:00"
   }
  ],
  "FileChangeEvents": [],

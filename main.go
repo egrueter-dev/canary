@@ -13,23 +13,12 @@ import (
 	"time"
 )
 
-// Commands
-// go run canary.exe
-//  -- list ( List all available commands )
-//  -- setup ( First step. set up log file )
-//  -- start-process (executable path & args)
-//  -- modify
-//  -- delete [filepath] ( supply filepath )
-
-// namePtr := flag.String("name", "AR", "name")
-// agePtr := flag.Int("age", 3700, "age")
-// flag.Parse()
-// fmt.Println(*namePtr, *agePtr) //AR 3700
-
 const LogFileName = "log.json"
 
+// TODO:
+// Handle wrong # of arguments per request
+
 func main() {
-	// Todo: invalid arguments
 	// Pull command Line Arguments
 	osArgs := os.Args
 	firstArg := osArgs[1]
