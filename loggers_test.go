@@ -1,9 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"os"
 	"testing"
 	"time"
 )
@@ -25,9 +22,18 @@ func TestLogNetworkRequest(t *testing.T) {
 		DataAmount:         10, // MB
 		Timestamp:          time.Now(),
 	}
-	// TODO: you could check for the presence of the log in the JSON file..
-	// This applies to other logging functions as well
+
 	LogNetworkRequest(data, fileName)
+
+	var logs LogFile
+
+	UnmarshallFile(fileName, &logs)
+
+	// check if events are present
+	if len(logs.NetworkRequestEvents) == 1 {
+	} else {
+		t.Error("Error, processes not logged properly")
+	}
 	testCleanup()
 }
 
@@ -48,16 +54,9 @@ func TestLogProcessStart(t *testing.T) {
 
 	LogProcessStart(data, fileName)
 
-	jsonFile, err := os.Open(fileName)
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	if err != nil {
-		panic(err)
-	}
-
 	var logs LogFile
 
-	json.Unmarshal(byteValue, &logs)
+	UnmarshallFile(fileName, &logs)
 
 	// check if events are present
 	if len(logs.ProcessStarts) == 1 {
@@ -92,21 +91,14 @@ func TestLoggingMultipleStartProcesses(t *testing.T) {
 
 	LogProcessStart(data2, fileName)
 
-	jsonFile, err := os.Open(fileName)
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	if err != nil {
-		panic(err)
-	}
-
 	var logs LogFile
 
-	json.Unmarshal(byteValue, &logs)
+	UnmarshallFile(fileName, &logs)
 
 	// check if events are present
 	if len(logs.ProcessStarts) == 2 {
 	} else {
-		t.Error("Error, processes not logged properly", err)
+		t.Error("Error, processes not logged properly")
 	}
 
 	testCleanup()
@@ -141,16 +133,9 @@ func TestLogFileChange(t *testing.T) {
 
 	LogFileChange(data, fileName)
 
-	jsonFile, err := os.Open(fileName)
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	if err != nil {
-		panic(err)
-	}
-
 	var logs LogFile
 
-	json.Unmarshal(byteValue, &logs)
+	UnmarshallFile(fileName, &logs)
 
 	// check if events are present
 	if len(logs.FileChangeEvents) == 2 {

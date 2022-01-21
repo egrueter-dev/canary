@@ -1,11 +1,24 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net"
 	"os"
 	"os/user"
 )
+
+func UnmarshallFile(fileName string, logs *LogFile) {
+	jsonFile, err := os.Open(fileName)
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	if err != nil {
+		panic(err)
+	}
+
+	json.Unmarshal(byteValue, &logs)
+}
 
 func fetchUserName() string {
 	user, err := user.Current()
