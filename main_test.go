@@ -82,11 +82,8 @@ func TestModifyFile(t *testing.T) {
 
 func TestProcessStart(t *testing.T) {
 	args := []string{"--a", "--b", "--c"}
-	// path := "./example_executables/example_executable"
-	path := "example_executables/example_executable"
+	path := "./example_executable"
 	ProcessStart(path, args)
-	t.Error("Incomplete process start")
-	// Process
 }
 
 // Clean up log_test.json file

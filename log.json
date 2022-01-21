@@ -1,15 +1,34 @@
 {
- "ProcessStarts": [],
- "FileChangeEvents": [
+ "ProcessStarts": [
   {
    "UserName": "Erik Grueter",
-   "FilePath": "./example.txt",
-   "Descriptor": "modify",
-   "ProcessName": "FileModified",
-   "CommandLine": "-modify",
-   "ProcessId": 64991,
-   "Timestamp": "2022-01-21T14:47:37.398395-05:00"
+   "ProcessName": "StartProcess",
+   "CommandLine": "-start-process",
+   "ProcessId": 68519,
+   "Timestamp": "2022-01-21T16:06:16.388798-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "StartProcess",
+   "CommandLine": "-start-process",
+   "ProcessId": 68697,
+   "Timestamp": "2022-01-21T16:08:20.508277-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "StartProcess",
+   "CommandLine": "-start-process",
+   "ProcessId": 68773,
+   "Timestamp": "2022-01-21T16:09:25.352521-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "StartProcess",
+   "CommandLine": "-start-process",
+   "ProcessId": 70117,
+   "Timestamp": "2022-01-21T16:24:10.2832-05:00"
   }
  ],
+ "FileChangeEvents": [],
  "NetworkRequestEvents": []
 }

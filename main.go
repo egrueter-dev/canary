@@ -10,7 +10,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strings"
 	"time"
 )
 
@@ -21,28 +20,20 @@ import (
 //  -- start-process (executable path & args)
 //  -- modify
 //  -- delete [filepath] ( supply filepath )
-//  -- transmit (transmit the )
 
-// fmt.Println(`
-//     usage:
-//           dig [@local-server] host [options]
-//     options:
-//           +trace
-//     Example:
-//           dig google.com
-//           dig @8.8.8.8 yahoo.com
-//           dig google.com +trace
-//           dig google.com MX
-// 	`)
+// namePtr := flag.String("name", "AR", "name")
+// agePtr := flag.Int("age", 3700, "age")
+// flag.Parse()
+// fmt.Println(*namePtr, *agePtr) //AR 3700
 
 const LogFileName = "log.json"
 
 func main() {
+	// Todo: invalid arguments
 	// Pull command Line Arguments
-	argsWithoutProg := os.Args[1:]
-	firstArg := argsWithoutProg[0]
+	osArgs := os.Args
+	firstArg := osArgs[1]
 
-	// TODO: handle case where no args are present..
 	switch firstArg {
 	case "-list":
 		fmt.Println(`
@@ -62,6 +53,8 @@ func main() {
 		fmt.Println("Generated Example File")
 		GenerateExampleFiles()
 	case "-start-process":
+		path := osArgs[2]
+
 		data := ProcessStartEvent{
 			UserName:    fetchUserName(),
 			ProcessName: "StartProcess",
@@ -71,9 +64,9 @@ func main() {
 		}
 
 		LogProcessStart(data, LogFileName)
-		// Actually start process here
+		ProcessStart(path, osArgs[2:])
 	case "-create":
-		filePath := argsWithoutProg[1]
+		filePath := osArgs[1]
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
@@ -88,7 +81,7 @@ func main() {
 		LogFileChange(data, LogFileName)
 		CreateFile(filePath)
 	case "-delete":
-		filePath := argsWithoutProg[1]
+		filePath := osArgs[1]
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
@@ -110,14 +103,12 @@ func main() {
 
 		NetworkRequest(destination)
 	case "-modify":
-		filePath := argsWithoutProg[1]
-		fmt.Print(filePath)
-		text := argsWithoutProg[2]
-		fmt.Print(text)
+		filePath := osArgs[1]
+		text := osArgs[2]
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
-			ProcessName: "FileModified",
+			ProcessName: "FileModified", // TODO: Change process name
 			ProcessId:   os.Getpid(),
 			CommandLine: "-modify",
 			FilePath:    filePath,
@@ -164,28 +155,15 @@ func GenerateLogFile(file string) {
 	f.Close()
 }
 
-// TODO: Should this be Run Process
-func ProcessStart(path string, arguments []string) {
-	cmd := exec.Command(
-		path, arguments...,
-	)
+func ProcessStart(path string, args []string) {
+	output, err := exec.Command(path, args...).Output()
 
-	fmt.Println("path:")
-	fmt.Println(path)
+	if err != nil {
+		panic(err)
+	}
 
-	fmt.Println("strings ")
-
-	fmt.Println(
-		strings.Join(arguments[:], " "),
-	)
-
-	fmt.Println(
-		cmd.Start(),
-	) // and wait
-
-	log.Printf("Waiting for command to finish...")
-	log.Printf("Process id is %v", cmd.Process.Pid)
-	cmd.Wait()
+	fmt.Println("Process Output:")
+	fmt.Println(string(output))
 }
 
 func CreateFile(path string) {
@@ -250,7 +228,7 @@ func NetworkRequest(url string) {
 	data := NetworkRequestEvent{
 		UserName:           fetchUserName(),
 		ProcessName:        "NetworkRequest",
-		CommandLine:        "-send-data",
+		CommandLine:        "-send-data", // executable name and arguments together
 		Protocol:           "HTTP",
 		DestinationAddress: getRemoteIP(url),
 		DestinationPort:    "?",
