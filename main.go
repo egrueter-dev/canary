@@ -53,7 +53,7 @@ func main() {
 		-delete [path] - Delete specific file
 		-send-data [destination]
 		-start-process [filepath, args] - Execute binary
-		-modify [filepath, text]
+		-modify [filepath, text] - Modify (add text) to a file.
 		`)
 	case "-setup":
 		fmt.Println("Generated Log File")
@@ -110,27 +110,28 @@ func main() {
 
 		NetworkRequest(destination)
 	case "-modify":
-		fmt.Println("Args:")
-		fmt.Println(argsWithoutProg)
+		filePath := argsWithoutProg[1]
+		fmt.Print(filePath)
+		text := argsWithoutProg[2]
+		fmt.Print(text)
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
 			ProcessName: "FileModified",
 			ProcessId:   os.Getpid(),
-			CommandLine: "-delete",
+			CommandLine: "-modify",
 			FilePath:    filePath,
-			Descriptor:  "delete",
+			Descriptor:  "modify",
 			Timestamp:   time.Now(),
 		}
 
 		LogFileChange(data, LogFileName)
-		// File Path
-		// Text
+		ModifyFile(filePath, text)
 	}
 }
 
 func GenerateExampleFiles() {
-	d1 := []byte("hello\ngo\n")
+	d1 := []byte("hello ")
 	err := os.WriteFile("example.txt", d1, 0644)
 
 	if err != nil {
@@ -198,6 +199,25 @@ func CreateFile(path string) {
 func DeleteFile(path string) {
 	if err := os.RemoveAll(filepath.Dir(path)); err != nil {
 		panic(err)
+	}
+}
+
+func ModifyFile(path string, text string) {
+	file, err := os.OpenFile(
+		path,
+		os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModeAppend,
+	)
+
+	if err != nil {
+		log.Fatalf("failed opening file: %s", err)
+	}
+
+	defer file.Close()
+
+	_, err = file.WriteString("world")
+
+	if err != nil {
+		log.Fatalf("failed writing to file: %s", err)
 	}
 }
 

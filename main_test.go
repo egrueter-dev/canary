@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"io/ioutil"
 	"os"
 	"testing"
 )
@@ -57,6 +58,26 @@ func TestDeleteFile(t *testing.T) {
 	}
 
 	testCleanup()
+}
+
+func TestModifyFile(t *testing.T) {
+	GenerateExampleFiles()
+
+	filepath := "./example.txt"
+	text := "world"
+
+	ModifyFile(filepath, text)
+
+	content, err := ioutil.ReadFile(filepath)
+
+	if err != nil {
+		panic(err)
+	}
+
+	if string(content) == "hello world" {
+	} else {
+		t.Error("File was not successfully deleted")
+	}
 }
 
 func TestProcessStart(t *testing.T) {
