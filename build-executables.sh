@@ -13,7 +13,16 @@ fi
 
 package_name="canary"
 
-platforms=("windows/amd64", "linux/amd64", "darwin/amd64", "darwin/arm")
+platforms=(
+    "linux/amd64"
+    "linux/arm"
+    "linux/arm64"
+    "darwin/amd64"
+    "darwin/arm64"
+    "windows/amd64" 
+    "windows/arm"
+    "windows/arm64"
+)
 
 for platform in "${platforms[@]}"
 do
@@ -30,6 +39,8 @@ do
     fi
 
     env GOOS=$GOOS GOARCH=$GOARCH go build -o $output_name $package
+
+    mv $output_name ./binaries
 
     if [ $? -ne 0 ]; then
         echo 'An error has occurred! Aborting the script execution...'
