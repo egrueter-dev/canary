@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"os/exec"
@@ -276,10 +277,7 @@ func NetworkRequest() {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Forwarded-For", "none")
 
-	// ip, port, err := net.SplitHostPort(req.RemoteAddr)
-
-	// conn, _ := net.Dial("ip:icmp", "google.com")
-	// fmt.Print("Host:", conn.LocalAddr())
+	fmt.Print("Host:", getLocalIP())
 
 	client := &http.Client{}
 
@@ -296,4 +294,12 @@ func NetworkRequest() {
 
 	body, _ := ioutil.ReadAll(resp.Body)
 	fmt.Println("response Body:", string(body))
+}
+
+// Gets the local IP and Port request was made from
+// in theory..
+func getLocalIP() *net.UDPAddr {
+	conn, _ := net.Dial("udp", "8.8.8.8:80")
+	defer conn.Close()
+	return conn.LocalAddr().(*net.UDPAddr)
 }

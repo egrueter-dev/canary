@@ -365,6 +365,32 @@
    "ProcessId": 0,
    "DataAmount": 10,
    "Timestamp": "2022-01-20T20:48:48.392563-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "https://private-anon-6f9facff1e-restapi3.apiary-mock.com/notes",
+   "DestinationPort": "?",
+   "SourceAddress": "localhost",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 10,
+   "Timestamp": "2022-01-20T20:51:02.385133-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "https://private-anon-6f9facff1e-restapi3.apiary-mock.com/notes",
+   "DestinationPort": "?",
+   "SourceAddress": "localhost",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 10,
+   "Timestamp": "2022-01-20T20:52:26.2385-05:00"
   }
  ]
 }
