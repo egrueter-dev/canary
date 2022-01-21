@@ -16,16 +16,6 @@ import (
 	"time"
 )
 
-// File Structure
-// src
-//   |_ main / main_test.go
-//   |_ loggers / loggers_test.go
-// dist
-//   - windows
-//   - linux
-//   - osx
-//
-
 // Commands
 // go run canary.exe
 //  -- list ( List all available commands )
@@ -34,6 +24,18 @@ import (
 //  -- modify
 //  -- delete [filepath] ( supply filepath )
 //  -- transmit (transmit the )
+
+// fmt.Println(`
+//     usage:
+//           dig [@local-server] host [options]
+//     options:
+//           +trace
+//     Example:
+//           dig google.com
+//           dig @8.8.8.8 yahoo.com
+//           dig google.com +trace
+//           dig google.com MX
+// 	`)
 
 func main() {
 	// Pull command Line Arguments
@@ -169,48 +171,6 @@ func GenerateLogFile(file string) {
 	_ = ioutil.WriteFile(file, jsonFile, 0644)
 
 	f.Close()
-}
-
-func LogProcessStart(event ProcessStartEvent, filename string) {
-	logFile := LogFile{}
-
-	jsonFile, _ := os.Open(filename)
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	json.Unmarshal(byteValue, &logFile)
-
-	// Append new data to Process starts
-	logFile.ProcessStarts = append(logFile.ProcessStarts, event)
-
-	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
-	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
-}
-
-func LogFileChange(event FileChangeEvent, filename string) {
-	logFile := LogFile{}
-
-	jsonFile, _ := os.Open(filename)
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	json.Unmarshal(byteValue, &logFile)
-
-	// Append new data to file changes
-	logFile.FileChangeEvents = append(logFile.FileChangeEvents, event)
-
-	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
-	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
-}
-
-func LogNetworkRequest(event NetworkRequestEvent, filename string) {
-	logFile := LogFile{}
-
-	jsonFile, _ := os.Open(filename)
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	json.Unmarshal(byteValue, &logFile)
-
-	// Append new data to network requests
-	logFile.NetworkRequestEvents = append(logFile.NetworkRequestEvents, event)
-
-	marshalledJsonFile, _ := json.MarshalIndent(logFile, "", " ")
-	_ = ioutil.WriteFile(filename, marshalledJsonFile, 0644)
 }
 
 // TODO: Should this be Run Process
