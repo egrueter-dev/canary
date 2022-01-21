@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -48,6 +49,26 @@ func TestLogProcessStart(t *testing.T) {
 
 	LogProcessStart(data, fileName)
 
+	jsonFile, err := os.Open(fileName)
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	if err != nil {
+		panic(err)
+	}
+
+	var logs LogFile
+
+	json.Unmarshal(byteValue, &logs)
+
+	fmt.Println("Process Starts")
+	fmt.Println(len(logs.ProcessStarts))
+
+	// check if events are present
+	if len(logs.ProcessStarts) == 1 {
+	} else {
+		t.Error("Error, processes not logged properly")
+	}
+
 	// TODO: Check if file is there to complete the test
 	testCleanup()
 }
@@ -87,7 +108,7 @@ func TestLoggingMultipleStartProcesses(t *testing.T) {
 	json.Unmarshal(byteValue, &logs)
 
 	// check if events are present
-	if len(logs.ProcessStarts) != 2 {
+	if len(logs.ProcessStarts) == 2 {
 	} else {
 		t.Error("Error, processes not logged properly", err)
 	}
@@ -122,6 +143,8 @@ func TestLogFileChange(t *testing.T) {
 		Timestamp:   time.Now(),
 	}
 
+	LogFileChange(data, fileName)
+
 	jsonFile, err := os.Open(fileName)
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
@@ -134,9 +157,9 @@ func TestLogFileChange(t *testing.T) {
 	json.Unmarshal(byteValue, &logs)
 
 	// check if events are present
-	if len(logs.FileChangeEvents) != 2 {
+	if len(logs.FileChangeEvents) == 2 {
 	} else {
-		t.Error("Error, events not logged properly", err)
+		t.Error("Error, events not logged properly")
 	}
 
 	LogFileChange(data2, fileName)
