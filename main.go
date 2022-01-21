@@ -307,6 +307,8 @@ func getLocalIP() *net.UDPAddr {
 // https://github.com/golang/go/issues/16142
 func getRemoteIP() net.IP {
 	ips, _ := net.LookupIP("google.com")
+	// Maybe try
+	// conn.RemoteAddr
 	// port, _ := net.LookupPort("tcp", "google.com")
 	// fmt.Println("port", port)
 
