@@ -273,11 +273,13 @@ func NetworkRequest() {
 	// Sent byte value of JSON
 	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(byteValue))
 
-	req.Header.Set("X-Custom-Header", "myvalue")
-
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Forwarded-For", "none")
 
-	fmt.Println(req.Body)
+	// ip, port, err := net.SplitHostPort(req.RemoteAddr)
+
+	// conn, _ := net.Dial("ip:icmp", "google.com")
+	// fmt.Print("Host:", conn.LocalAddr())
 
 	client := &http.Client{}
 
