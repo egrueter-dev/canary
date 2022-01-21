@@ -16,6 +16,16 @@ import (
 	"time"
 )
 
+// File Structure
+// src
+//   |_ main / main_test.go
+//   |_ loggers / loggers_test.go
+// dist
+//   - windows
+//   - linux
+//   - osx
+//
+
 // Commands
 // go run canary.exe
 //  -- list ( List all available commands )
@@ -117,30 +127,13 @@ func main() {
 		LogFileChange(data2, "log.json")
 		DeleteFile((filePath))
 	case "-send-data":
-		user, err := user.Current()
-
-		if err != nil {
-			log.Fatalf(err.Error())
-		}
 
 		destination := "https://private-anon-6f9facff1e-restapi3.apiary-mock.com/notes"
 
 		// This should be updated after the request is
 		// Actually made
-		data := NetworkRequestEvent{
-			UserName:           user.Name,
-			ProcessName:        "NetworkRequest",
-			CommandLine:        "-send-data",
-			Protocol:           "HTTP", // TODO: This could be an alternative
-			DestinationAddress: destination,
-			DestinationPort:    "?",
-			SourceAddress:      "localhost", //?
-			SourcePort:         "8080",      // ?>
-			DataAmount:         10,          // get the size of the JSON file
-			Timestamp:          time.Now(),
-		}
-		LogNetworkRequest(data, "log.json")
-		NetworkRequest()
+
+		NetworkRequest(destination)
 	}
 }
 
@@ -259,15 +252,12 @@ func DeleteFile(path string) {
 }
 
 // Send Log Data in Network Request
-func NetworkRequest() {
-	url := "https://private-anon-6f9facff1e-restapi3.apiary-mock.com/notes"
-	fmt.Println("URL:>", url)
-
+func NetworkRequest(url string) {
 	jsonFile, err := os.Open("log.json")
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	// Sent byte value of JSON
@@ -275,8 +265,6 @@ func NetworkRequest() {
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Forwarded-For", "none")
-
-	fmt.Print("Host:", getLocalIP())
 
 	client := &http.Client{}
 
@@ -288,31 +276,45 @@ func NetworkRequest() {
 
 	defer resp.Body.Close()
 
-	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("response Body:", string(body))
+	user, err := user.Current()
 
-	getRemoteIP()
+	if err != nil {
+		panic(err)
+	}
+
+	data := NetworkRequestEvent{
+		UserName:           user.Name,
+		ProcessName:        "NetworkRequest",
+		CommandLine:        "-send-data",
+		Protocol:           "HTTP",
+		DestinationAddress: getRemoteIP(url),
+		DestinationPort:    "?",
+		SourceAddress:      getLocalIP(),
+		SourcePort:         "8080", // ?>
+		DataAmount:         10,     // get the size of the JSON file
+		Timestamp:          time.Now(),
+	}
+	LogNetworkRequest(data, "log.json")
 }
 
 // Gets the local IP and Port request was made from
 // in theory..
-func getLocalIP() *net.UDPAddr {
+func getLocalIP() string {
 	conn, _ := net.Dial("udp", "8.8.8.8:80")
 	defer conn.Close()
-	return conn.LocalAddr().(*net.UDPAddr)
+	return conn.LocalAddr().(*net.UDPAddr).String()
 }
 
 // TODO: set path
 // TODO: get port
 // https://github.com/golang/go/issues/16142
-func getRemoteIP() net.IP {
-	ips, _ := net.LookupIP("google.com")
+func getRemoteIP(url string) string {
+	ips, _ := net.LookupIP(url)
 	// Maybe try
 	// conn.RemoteAddr
 	// port, _ := net.LookupPort("tcp", "google.com")
 	// fmt.Println("port", port)
 
 	fmt.Println("IPs: ", ips[1])
-
-	return ips[1].To4()
+	return ips[1].String()
 }
