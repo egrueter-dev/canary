@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -59,9 +58,6 @@ func TestLogProcessStart(t *testing.T) {
 	var logs LogFile
 
 	json.Unmarshal(byteValue, &logs)
-
-	fmt.Println("Process Starts")
-	fmt.Println(len(logs.ProcessStarts))
 
 	// check if events are present
 	if len(logs.ProcessStarts) == 1 {
