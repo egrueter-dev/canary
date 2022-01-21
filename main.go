@@ -28,7 +28,6 @@ import (
 func main() {
 	// Pull command Line Arguments
 	argsWithoutProg := os.Args[1:]
-
 	firstArg := argsWithoutProg[0]
 
 	// TODO: handle case where no args are present..
@@ -289,11 +288,10 @@ func NetworkRequest() {
 
 	defer resp.Body.Close()
 
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
-
 	body, _ := ioutil.ReadAll(resp.Body)
 	fmt.Println("response Body:", string(body))
+
+	getRemoteIP()
 }
 
 // Gets the local IP and Port request was made from
@@ -302,4 +300,17 @@ func getLocalIP() *net.UDPAddr {
 	conn, _ := net.Dial("udp", "8.8.8.8:80")
 	defer conn.Close()
 	return conn.LocalAddr().(*net.UDPAddr)
+}
+
+// TODO: set path
+// TODO: get port
+// https://github.com/golang/go/issues/16142
+func getRemoteIP() net.IP {
+	ips, _ := net.LookupIP("google.com")
+	// port, _ := net.LookupPort("tcp", "google.com")
+	// fmt.Println("port", port)
+
+	fmt.Println("IPs: ", ips[1])
+
+	return ips[1].To4()
 }
