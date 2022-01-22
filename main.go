@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/pterm/pterm"
@@ -24,6 +25,7 @@ func main() {
 	// Pull command Line Arguments
 	osArgs := os.Args
 	firstArg := osArgs[1]
+	commandLine := strings.Join(osArgs[:], ",")
 
 	switch firstArg {
 	case "-list":
@@ -50,7 +52,7 @@ func main() {
 			UserName:    fetchUserName(),
 			ProcessName: "StartProcess",
 			ProcessId:   os.Getpid(),
-			CommandLine: "-start-process",
+			CommandLine: commandLine,
 			Timestamp:   time.Now(),
 		}
 
@@ -61,9 +63,9 @@ func main() {
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
-			ProcessName: "FileCreated",
+			ProcessName: osArgs[0],
 			ProcessId:   os.Getpid(),
-			CommandLine: "--create",
+			CommandLine: commandLine,
 			FilePath:    filePath,
 			Descriptor:  "create",
 			Timestamp:   time.Now(),
@@ -76,9 +78,9 @@ func main() {
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
-			ProcessName: "FileDeleted",
+			ProcessName: osArgs[0],
 			ProcessId:   os.Getpid(),
-			CommandLine: "-delete",
+			CommandLine: commandLine,
 			FilePath:    filePath,
 			Descriptor:  "delete",
 			Timestamp:   time.Now(),
@@ -88,20 +90,17 @@ func main() {
 		DeleteFile((filePath))
 	case "-send-data":
 		destination := osArgs[2]
-
-		// This should be updated after the request is
-		// Actually made
-
-		NetworkRequest(destination)
+		processName := osArgs[0]
+		NetworkRequest(commandLine, processName, destination)
 	case "-modify":
 		filePath := osArgs[1]
 		text := osArgs[2]
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
-			ProcessName: "FileModified", // TODO: Change process name
+			ProcessName: osArgs[0],
 			ProcessId:   os.Getpid(),
-			CommandLine: "-modify",
+			CommandLine: commandLine,
 			FilePath:    filePath,
 			Descriptor:  "modify",
 			Timestamp:   time.Now(),
@@ -192,7 +191,7 @@ func ModifyFile(path string, text string) {
 }
 
 // Send Log Data in Network Request
-func NetworkRequest(url string) {
+func NetworkRequest(commandLine string, processName string, url string) {
 	jsonFile, err := os.Open(LogFileName)
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
@@ -208,18 +207,21 @@ func NetworkRequest(url string) {
 
 	client := &http.Client{}
 
+	// Animate Request
+	introSpinner, _ := pterm.DefaultSpinner.WithRemoveWhenDone(false).Start("Sending Network Request")
+	introSpinner.Start()
+
 	resp, err := client.Do(req)
 
 	if err != nil {
 		panic(err)
 	}
-
 	defer resp.Body.Close()
 
 	data := NetworkRequestEvent{
 		UserName:           fetchUserName(),
-		ProcessName:        "NetworkRequest",
-		CommandLine:        "-send-data", // executable name and arguments together
+		ProcessName:        processName,
+		CommandLine:        commandLine,
 		Protocol:           "HTTP",
 		DestinationAddress: getRemoteIP(url),
 		DestinationPort:    "?",
@@ -228,5 +230,6 @@ func NetworkRequest(url string) {
 		DataAmount:         getFileSize(*jsonFile), // get the size of the JSON file
 		Timestamp:          time.Now(),
 	}
+
 	LogNetworkRequest(data, LogFileName)
 }

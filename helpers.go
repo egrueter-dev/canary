@@ -36,6 +36,14 @@ func getLocalIP() string {
 	return conn.LocalAddr().(*net.UDPAddr).String()
 }
 
+// TODO: Get port
+// func getLocalPort() string {
+// 	conn, _ := net.Dial("udp", "8.8.8.8:80")
+// 	defer conn.Close()
+// 	// return conn.LocalAddr().(*net.UDPAddr).String()
+// 	return conn.LocalAddr().Network()
+// }
+
 // TODO: get port
 // https://github.com/golang/go/issues/16142
 func getRemoteIP(url string) string {

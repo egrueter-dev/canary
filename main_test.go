@@ -82,7 +82,9 @@ func TestModifyFile(t *testing.T) {
 
 func TestNetworkRequest(t *testing.T) {
 	destination := "https://www.google.com"
-	NetworkRequest(destination)
+	processName := "./test_process"
+	commandLine := "./test_process"
+	NetworkRequest(commandLine, processName, destination)
 }
 
 func TestProcessStart(t *testing.T) {
