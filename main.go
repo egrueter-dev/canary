@@ -11,6 +11,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"time"
+
+	"github.com/pterm/pterm"
 )
 
 const LogFileName = "log.json"
@@ -25,16 +27,16 @@ func main() {
 
 	switch firstArg {
 	case "-list":
-		fmt.Println(`
-		Available Commands:
-		-list - List available commands
-		-setup - Generate logfile
-		-create [filetype, path] - Create specific file
-		-delete [path] - Delete specific file
-		-send-data [destination]
-		-start-process [filepath, args] - Execute binary
-		-modify [filepath, text] - Modify (add text) to a file.
-		`)
+		pterm.DefaultTable.WithHasHeader().WithData(pterm.TableData{
+			{"Command", "Parameters", "Description"},
+			{"-list", "", "List available commands"},
+			{"-setup", "", "Generate Logfile"},
+			{"-create", "[filepath]", "Create specific file"},
+			{"-delete", "[path]", "Delete specific file"},
+			{"-send-data", "[destination]", "Send log data to remote server"},
+			{"-start-process", "[filepath, args]", "Execute binary"},
+			{"-modify", "[filepath, text]", "Modify (add text) to a file"},
+		}).Render()
 	case "-setup":
 		fmt.Println("Generated Log File")
 		GenerateLogFile(LogFileName)
