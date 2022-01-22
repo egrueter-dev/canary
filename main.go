@@ -218,6 +218,8 @@ func NetworkRequest(commandLine string, processName string, url string) {
 	}
 	defer resp.Body.Close()
 
+	ip, port := getLocalIP()
+
 	data := NetworkRequestEvent{
 		UserName:           fetchUserName(),
 		ProcessName:        processName,
@@ -225,9 +227,9 @@ func NetworkRequest(commandLine string, processName string, url string) {
 		Protocol:           "HTTP",
 		DestinationAddress: getRemoteIP(url),
 		DestinationPort:    "?",
-		SourceAddress:      getLocalIP(),
-		SourcePort:         "8080",                 // ?>
-		DataAmount:         getFileSize(*jsonFile), // get the size of the JSON file
+		SourceAddress:      ip,
+		SourcePort:         port,
+		DataAmount:         getFileSize(*jsonFile),
 		Timestamp:          time.Now(),
 	}
 

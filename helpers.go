@@ -3,9 +3,13 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net"
+	"net/url"
 	"os"
 	"os/user"
+	"strconv"
+	"strings"
 )
 
 func UnmarshallFile(fileName string, logs *LogFile) {
@@ -29,30 +33,38 @@ func fetchUserName() string {
 	return user.Name
 }
 
-// Gets the local IP request was made from
-func getLocalIP() string {
+func getLocalIP() (string, string) {
+	// Check local IP address through Google DNS resolver
+	// unsure why this needs to be UDP?
 	conn, _ := net.Dial("udp", "8.8.8.8:80")
 	defer conn.Close()
-	return conn.LocalAddr().(*net.UDPAddr).String()
+	udp := conn.LocalAddr()
+
+	udpAddr := udp.(*net.UDPAddr)
+	addr := udpAddr.IP
+	port := udpAddr.Port
+
+	return addr.String(), strconv.Itoa(port)
 }
 
-// TODO: Get port
-// func getLocalPort() string {
-// 	conn, _ := net.Dial("udp", "8.8.8.8:80")
-// 	defer conn.Close()
-// 	// return conn.LocalAddr().(*net.UDPAddr).String()
-// 	return conn.LocalAddr().Network()
-// }
+func getRemoteIP(remoteUrl string) string {
+	u, err := url.Parse(remoteUrl)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-// TODO: get port
-// https://github.com/golang/go/issues/16142
-func getRemoteIP(url string) string {
-	ips, _ := net.LookupIP("google.com")
+	// https://www.google.com -> google.com
+	parts := strings.Split(u.Hostname(), "www")
+	truncUrl := parts[1][1:]
+
+	ips, _ := net.LookupIP(truncUrl)
+
 	for _, ip := range ips {
 		if ipv4 := ip.To4(); ipv4 != nil {
 			return ipv4.To4().String()
 		}
 	}
+
 	return "not found"
 }
 
