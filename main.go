@@ -87,7 +87,7 @@ func main() {
 		LogFileChange(data, LogFileName)
 		DeleteFile((filePath))
 	case "-send-data":
-		destination := "https://private-anon-6f9facff1e-restapi3.apiary-mock.com/notes"
+		destination := osArgs[2]
 
 		// This should be updated after the request is
 		// Actually made

@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net"
 	"os"
@@ -40,14 +39,13 @@ func getLocalIP() string {
 // TODO: get port
 // https://github.com/golang/go/issues/16142
 func getRemoteIP(url string) string {
-	ips, _ := net.LookupIP(url)
-	// Maybe try
-	// conn.RemoteAddr
-	// port, _ := net.LookupPort("tcp", "google.com")
-	// fmt.Println("port", port)
-
-	fmt.Println("IPs: ", ips[1])
-	return ips[1].String()
+	ips, _ := net.LookupIP("google.com")
+	for _, ip := range ips {
+		if ipv4 := ip.To4(); ipv4 != nil {
+			return ipv4.To4().String()
+		}
+	}
+	return "not found"
 }
 
 func getFileSize(file os.File) int64 {

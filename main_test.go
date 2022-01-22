@@ -80,6 +80,11 @@ func TestModifyFile(t *testing.T) {
 	}
 }
 
+func TestNetworkRequest(t *testing.T) {
+	destination := "https://www.google.com"
+	NetworkRequest(destination)
+}
+
 func TestProcessStart(t *testing.T) {
 	args := []string{"--a", "--b", "--c"}
 	path := "./example_executable"

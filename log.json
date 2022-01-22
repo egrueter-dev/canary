@@ -20,5 +20,84 @@
    "Timestamp": "2022-01-21T20:13:25.873212-05:00"
   }
  ],
- "NetworkRequestEvents": []
+ "NetworkRequestEvents": [
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "nothing",
+   "DestinationPort": "?",
+   "SourceAddress": "192.168.0.176:52827",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 0,
+   "Timestamp": "2022-01-21T20:23:55.42676-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "nothing",
+   "DestinationPort": "?",
+   "SourceAddress": "192.168.0.176:55671",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 0,
+   "Timestamp": "2022-01-21T20:24:32.790587-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "nothing",
+   "DestinationPort": "?",
+   "SourceAddress": "192.168.0.176:55852",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 1,
+   "Timestamp": "2022-01-21T20:24:52.709206-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "nothing",
+   "DestinationPort": "?",
+   "SourceAddress": "192.168.0.176:49397",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 1,
+   "Timestamp": "2022-01-21T20:27:38.265721-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "142.251.40.238",
+   "DestinationPort": "?",
+   "SourceAddress": "192.168.0.176:58277",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 1,
+   "Timestamp": "2022-01-21T20:28:21.547332-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "NetworkRequest",
+   "CommandLine": "-send-data",
+   "Protocol": "HTTP",
+   "DestinationAddress": "142.251.40.238",
+   "DestinationPort": "?",
+   "SourceAddress": "192.168.0.176:53938",
+   "SourcePort": "8080",
+   "ProcessId": 0,
+   "DataAmount": 2,
+   "Timestamp": "2022-01-21T20:29:18.274503-05:00"
+  }
+ ]
 }
