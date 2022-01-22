@@ -93,8 +93,6 @@ func TestProcessStart(t *testing.T) {
 	ProcessStart(path, args)
 }
 
-// Clean up log_test.json file
-// after every test run
 func testCleanup() {
 	os.Remove("log_test.json")
 	os.Remove("example.txt")

@@ -19,8 +19,7 @@ import (
 const LogFileName = "log.json"
 
 // TODO:
-// Handle wrong # of arguments per request
-
+// Compile final binaries
 func main() {
 	// Pull command Line Arguments
 	osArgs := os.Args
@@ -33,10 +32,10 @@ func main() {
 			{"Command", "Parameters", "Description"},
 			{"-list", "", "List available commands"},
 			{"-setup", "", "Generate Logfile"},
+			{"-start-process", "[filepath, args]", "Execute binary"},
 			{"-create", "[filepath]", "Create specific file"},
 			{"-delete", "[path]", "Delete specific file"},
 			{"-send-data", "[destination]", "Send log data to remote server"},
-			{"-start-process", "[filepath, args]", "Execute binary"},
 			{"-modify", "[filepath, text]", "Modify (add text) to a file"},
 		}).Render()
 	case "-setup":
@@ -46,11 +45,13 @@ func main() {
 		pterm.Success.Println("Generated example.txt File")
 		GenerateExampleFiles()
 	case "-start-process":
+		checkArgumentPresent(os.Args, 3, "[filepath, args]")
+
 		path := osArgs[2]
 
 		data := ProcessStartEvent{
 			UserName:    fetchUserName(),
-			ProcessName: "StartProcess",
+			ProcessName: osArgs[0],
 			ProcessId:   os.Getpid(),
 			CommandLine: commandLine,
 			Timestamp:   time.Now(),
@@ -59,6 +60,8 @@ func main() {
 		LogProcessStart(data, LogFileName)
 		ProcessStart(path, osArgs[2:])
 	case "-create":
+		checkArgumentPresent(os.Args, 3, "[filepath]")
+
 		filePath := osArgs[2]
 
 		data := FileChangeEvent{
@@ -73,8 +76,12 @@ func main() {
 
 		LogFileChange(data, LogFileName)
 		CreateFile(filePath)
+
+		pterm.Success.Printf("Created %s\n", filePath)
 	case "-delete":
-		filePath := osArgs[1]
+		checkArgumentPresent(os.Args, 3, "[filepath]")
+
+		filePath := osArgs[3]
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
@@ -88,6 +95,8 @@ func main() {
 
 		LogFileChange(data, LogFileName)
 		DeleteFile((filePath))
+
+		pterm.Success.Printf("Deleted %s\n", filePath)
 	case "-send-data":
 		destination := osArgs[2]
 		processName := osArgs[0]
@@ -165,6 +174,13 @@ func CreateFile(path string) {
 }
 
 func DeleteFile(path string) {
+	// Remove just file
+	if filepath.Dir(path) == "." {
+		os.RemoveAll(path)
+		return
+	}
+
+	// Remove file & directory
 	if err := os.RemoveAll(filepath.Dir(path)); err != nil {
 		panic(err)
 	}

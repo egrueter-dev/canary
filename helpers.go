@@ -10,6 +10,8 @@ import (
 	"os/user"
 	"strconv"
 	"strings"
+
+	"github.com/pterm/pterm"
 )
 
 func UnmarshallFile(fileName string, logs *LogFile) {
@@ -98,4 +100,11 @@ func getFileSize(file os.File) int64 {
 	}
 
 	return fileKb
+}
+
+func checkArgumentPresent(osArgs []string, expected int, arguments string) {
+	if len(osArgs) < expected {
+		pterm.Error.Printf("Supply Arguments: %s\n", arguments)
+		os.Exit(1)
+	}
 }
