@@ -38,10 +38,10 @@ func main() {
 			{"-modify", "[filepath, text]", "Modify (add text) to a file"},
 		}).Render()
 	case "-setup":
-		fmt.Println("Generated Log File")
+		pterm.Success.Println("Generated Log File")
 		GenerateLogFile(LogFileName)
 
-		fmt.Println("Generated Example File")
+		pterm.Success.Println("Generated example.txt File")
 		GenerateExampleFiles()
 	case "-start-process":
 		path := osArgs[2]
@@ -57,7 +57,7 @@ func main() {
 		LogProcessStart(data, LogFileName)
 		ProcessStart(path, osArgs[2:])
 	case "-create":
-		filePath := osArgs[1]
+		filePath := osArgs[2]
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),

@@ -1,41 +1,24 @@
 {
- "ProcessStarts": [
+ "ProcessStarts": [],
+ "FileChangeEvents": [
   {
    "UserName": "Erik Grueter",
-   "ProcessName": "StartProcess",
-   "CommandLine": "-start-process",
-   "ProcessId": 68519,
-   "Timestamp": "2022-01-21T16:06:16.388798-05:00"
+   "FilePath": "-create",
+   "Descriptor": "create",
+   "ProcessName": "FileCreated",
+   "CommandLine": "--create",
+   "ProcessId": 79818,
+   "Timestamp": "2022-01-21T20:13:03.384957-05:00"
   },
   {
    "UserName": "Erik Grueter",
-   "ProcessName": "StartProcess",
-   "CommandLine": "-start-process",
-   "ProcessId": 68697,
-   "Timestamp": "2022-01-21T16:08:20.508277-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "StartProcess",
-   "CommandLine": "-start-process",
-   "ProcessId": 68773,
-   "Timestamp": "2022-01-21T16:09:25.352521-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "StartProcess",
-   "CommandLine": "-start-process",
-   "ProcessId": 70117,
-   "Timestamp": "2022-01-21T16:24:10.2832-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "StartProcess",
-   "CommandLine": "-start-process",
-   "ProcessId": 71002,
-   "Timestamp": "2022-01-21T16:50:11.95897-05:00"
+   "FilePath": "example2.txt",
+   "Descriptor": "create",
+   "ProcessName": "FileCreated",
+   "CommandLine": "--create",
+   "ProcessId": 79882,
+   "Timestamp": "2022-01-21T20:13:25.873212-05:00"
   }
  ],
- "FileChangeEvents": [],
  "NetworkRequestEvents": []
 }
