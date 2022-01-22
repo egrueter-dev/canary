@@ -226,7 +226,7 @@ func NetworkRequest(commandLine string, processName string, url string) {
 		CommandLine:        commandLine,
 		Protocol:           "HTTP",
 		DestinationAddress: getRemoteIP(url),
-		DestinationPort:    "?",
+		DestinationPort:    getRemotePort(url),
 		SourceAddress:      ip,
 		SourcePort:         port,
 		DataAmount:         getFileSize(*jsonFile),

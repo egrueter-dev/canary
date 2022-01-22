@@ -547,6 +547,97 @@
    "ProcessId": 0,
    "DataAmount": 14,
    "Timestamp": "2022-01-22T13:41:44.785333-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./test_process",
+   "CommandLine": "./test_process",
+   "Protocol": "HTTP",
+   "DestinationAddress": "142.250.65.238",
+   "DestinationPort": "?",
+   "SourceAddress": "192.168.0.176",
+   "SourcePort": "52143",
+   "ProcessId": 0,
+   "DataAmount": 14,
+   "Timestamp": "2022-01-22T14:19:48.106684-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./test_process",
+   "CommandLine": "./test_process",
+   "Protocol": "HTTP",
+   "DestinationAddress": "142.250.176.206",
+   "DestinationPort": "string",
+   "SourceAddress": "192.168.0.176",
+   "SourcePort": "57524",
+   "ProcessId": 0,
+   "DataAmount": 14,
+   "Timestamp": "2022-01-22T14:34:08.462708-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./test_process",
+   "CommandLine": "./test_process",
+   "Protocol": "HTTP",
+   "DestinationAddress": "142.250.176.206",
+   "DestinationPort": "string",
+   "SourceAddress": "192.168.0.176",
+   "SourcePort": "51743",
+   "ProcessId": 0,
+   "DataAmount": 15,
+   "Timestamp": "2022-01-22T14:35:06.374977-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./test_process",
+   "CommandLine": "./test_process",
+   "Protocol": "HTTP",
+   "DestinationAddress": "142.250.176.206",
+   "DestinationPort": "string",
+   "SourceAddress": "192.168.0.176",
+   "SourcePort": "54733",
+   "ProcessId": 0,
+   "DataAmount": 15,
+   "Timestamp": "2022-01-22T14:35:18.16025-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./test_process",
+   "CommandLine": "./test_process",
+   "Protocol": "HTTP",
+   "DestinationAddress": "142.250.176.206",
+   "DestinationPort": "string",
+   "SourceAddress": "192.168.0.176",
+   "SourcePort": "57770",
+   "ProcessId": 0,
+   "DataAmount": 16,
+   "Timestamp": "2022-01-22T14:35:54.678914-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./test_process",
+   "CommandLine": "./test_process",
+   "Protocol": "HTTP",
+   "DestinationAddress": "142.250.176.206",
+   "DestinationPort": "80",
+   "SourceAddress": "192.168.0.176",
+   "SourcePort": "63378",
+   "ProcessId": 0,
+   "DataAmount": 16,
+   "Timestamp": "2022-01-22T14:37:15.628001-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./test_process",
+   "CommandLine": "./test_process",
+   "Protocol": "HTTP",
+   "DestinationAddress": "142.251.40.238",
+   "DestinationPort": "80",
+   "SourceAddress": "192.168.0.176",
+   "SourcePort": "62559",
+   "ProcessId": 0,
+   "DataAmount": 16,
+   "Timestamp": "2022-01-22T14:39:10.725805-05:00"
   }
  ]
 }

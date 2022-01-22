@@ -47,6 +47,24 @@ func getLocalIP() (string, string) {
 	return addr.String(), strconv.Itoa(port)
 }
 
+func getRemotePort(remoteUrl string) string {
+	u, err := url.Parse(remoteUrl)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	parts := strings.Split(u.Hostname(), "www")
+	truncUrl := parts[1][1:]
+
+	conn, _ := net.Dial("tcp", truncUrl+":http")
+	defer conn.Close()
+
+	remoteAddr := conn.RemoteAddr()
+	addr := remoteAddr.(*net.TCPAddr)
+
+	return strconv.Itoa(addr.Port)
+}
+
 func getRemoteIP(remoteUrl string) string {
 	u, err := url.Parse(remoteUrl)
 	if err != nil {
