@@ -1,11 +1,36 @@
 # Canary - Endpoint Activity Generator
 
+Contents:
+1. [About Canary](#about)
+2. [Getting Started](#startup)
+3. [Commands](#commands)
+4. [Canary Platform Support](#platforms)
 
- Contents
-1. [Canary Platform Support](#platforms)
-2. [Example2](#example2)
-3. [Third Example](#third-example)
-4. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
+## About
+
+Canary is an endpoint activity generator. Canary can be used to modify, create, and delete files. The application also comes with a logging capability. Logs can be exported to a remote server via a network call. 
+
+## Startup
+
+Canary comes with pre-built binaries located in `/binaries`.
+You can download the binaries for your specific architecture directly from this repository, or you can clone the repository, `cd` into `/binaries` and run them
+from there.
+
+## Commands
+
+Below are a list of the available commands:
+
+| Command         | Parameters          | Description                                     |
+| --------------- | ------------------- | ------------------------------------------------|
+| -list           |                     | List all available commands                     |
+| -setup          |                     | Generate Log & Example Files                    |
+| -start-process  | filepath, arguments | Execute binary at path                          |
+| -create         | filepath            | Create specific file at path                    |
+| -delete         | filepath            | Delete specific file at path                    |
+| -send-data      | destination         | Execute binary at provided path                 |
+| -modify         | filepath text       | Modify file at path with text (text files only) |
+
+These commands are available at the command line by running the `-list` command.
 
 ## Platforms 
 
