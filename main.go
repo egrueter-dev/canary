@@ -34,7 +34,7 @@ func main() {
 			{"-setup", "", "Generate Logfile"},
 			{"-start-process", "[filepath, args]", "Execute binary"},
 			{"-create", "[filepath]", "Create specific file"},
-			{"-delete", "[path]", "Delete specific file"},
+			{"-delete", "[filepath]", "Delete specific file"},
 			{"-send-data", "[destination]", "Send log data to remote server"},
 			{"-modify", "[filepath, text]", "Modify (add text) to a file"},
 		}).Render()
@@ -82,7 +82,9 @@ func main() {
 	case "-delete":
 		checkArgumentPresent(os.Args, 3, "[filepath]")
 
-		filePath := osArgs[3]
+		filePath := osArgs[2]
+
+		fmt.Println(osArgs)
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),

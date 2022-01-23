@@ -67,6 +67,33 @@
    "CommandLine": "./m,-modify,./example.txt,erik",
    "ProcessId": 13361,
    "Timestamp": "2022-01-22T20:56:58.574224-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "FilePath": "himike.txt",
+   "Descriptor": "create",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-create,himike.txt",
+   "ProcessId": 14235,
+   "Timestamp": "2022-01-22T21:15:16.787954-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "FilePath": "himike.txt",
+   "Descriptor": "create",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-create,himike.txt",
+   "ProcessId": 14394,
+   "Timestamp": "2022-01-22T21:17:11.912231-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "FilePath": "himike.txt",
+   "Descriptor": "delete",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-delete,himike.txt",
+   "ProcessId": 14409,
+   "Timestamp": "2022-01-22T21:17:20.726015-05:00"
   }
  ],
  "NetworkRequestEvents": [
