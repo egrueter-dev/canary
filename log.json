@@ -3,164 +3,53 @@
   {
    "UserName": "Erik Grueter",
    "ProcessName": "./m",
-   "CommandLine": "./m,-start-process,./example_executable,erik",
-   "ProcessId": 13575,
-   "Timestamp": "2022-01-22T20:59:10.556472-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "./m",
-   "CommandLine": "./m,-start-process,./example_executable,erik",
-   "ProcessId": 13691,
-   "Timestamp": "2022-01-22T20:59:41.786666-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "./m",
-   "CommandLine": "./m,-start-process,./example_executable",
-   "ProcessId": 13732,
-   "Timestamp": "2022-01-22T21:00:06.457206-05:00"
+   "CommandLine": "./m,-start-process,./example_executable,-args",
+   "ProcessId": 20012,
+   "Timestamp": "2022-01-23T18:12:34.993987-05:00"
   }
  ],
  "FileChangeEvents": [
   {
    "UserName": "Erik Grueter",
-   "FilePath": "-modify",
-   "Descriptor": "modify",
-   "ProcessName": "./m",
-   "CommandLine": "./m,-modify,example.txt,erik",
-   "ProcessId": 12868,
-   "Timestamp": "2022-01-22T20:53:27.399447-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "FilePath": "-modify",
-   "Descriptor": "modify",
-   "ProcessName": "./m",
-   "CommandLine": "./m,-modify,./example.txt,erik",
-   "ProcessId": 12893,
-   "Timestamp": "2022-01-22T20:53:58.807569-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "FilePath": "./example.txt",
-   "Descriptor": "modify",
-   "ProcessName": "./m",
-   "CommandLine": "./m,-modify,./example.txt,erik",
-   "ProcessId": 13001,
-   "Timestamp": "2022-01-22T20:54:38.804626-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "FilePath": "./example.txt",
-   "Descriptor": "modify",
-   "ProcessName": "./m",
-   "CommandLine": "./m,-modify,./example.txt,erik",
-   "ProcessId": 13095,
-   "Timestamp": "2022-01-22T20:55:11.694272-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "FilePath": "./example.txt",
-   "Descriptor": "modify",
-   "ProcessName": "./m",
-   "CommandLine": "./m,-modify,./example.txt,erik",
-   "ProcessId": 13361,
-   "Timestamp": "2022-01-22T20:56:58.574224-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "FilePath": "himike.txt",
+   "FilePath": "test.txt",
    "Descriptor": "create",
    "ProcessName": "./m",
-   "CommandLine": "./m,-create,himike.txt",
-   "ProcessId": 14235,
-   "Timestamp": "2022-01-22T21:15:16.787954-05:00"
+   "CommandLine": "./m,-create,test.txt",
+   "ProcessId": 20020,
+   "Timestamp": "2022-01-23T18:12:50.893146-05:00"
   },
   {
    "UserName": "Erik Grueter",
-   "FilePath": "himike.txt",
-   "Descriptor": "create",
+   "FilePath": "./example.txt",
+   "Descriptor": "modify",
    "ProcessName": "./m",
-   "CommandLine": "./m,-create,himike.txt",
-   "ProcessId": 14394,
-   "Timestamp": "2022-01-22T21:17:11.912231-05:00"
+   "CommandLine": "./m,-modify,./example.txt,hi",
+   "ProcessId": 20044,
+   "Timestamp": "2022-01-23T18:13:27.474333-05:00"
   },
   {
    "UserName": "Erik Grueter",
-   "FilePath": "himike.txt",
+   "FilePath": "./example.txt",
    "Descriptor": "delete",
    "ProcessName": "./m",
-   "CommandLine": "./m,-delete,himike.txt",
-   "ProcessId": 14409,
-   "Timestamp": "2022-01-22T21:17:20.726015-05:00"
+   "CommandLine": "./m,-delete,./example.txt",
+   "ProcessId": 20061,
+   "Timestamp": "2022-01-23T18:13:51.96422-05:00"
   }
  ],
  "NetworkRequestEvents": [
   {
    "UserName": "Erik Grueter",
-   "ProcessName": "./test_process",
-   "CommandLine": "./test_process",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-send-data,https://www.google.com",
    "Protocol": "HTTP",
-   "DestinationAddress": "142.250.80.46",
+   "DestinationAddress": "142.251.40.238",
    "DestinationPort": "80",
    "SourceAddress": "192.168.0.176",
-   "SourcePort": "58680",
+   "SourcePort": "64729",
    "ProcessId": 0,
-   "DataAmount": 1,
-   "Timestamp": "2022-01-22T20:56:00.255393-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "./test_process",
-   "CommandLine": "./test_process",
-   "Protocol": "HTTP",
-   "DestinationAddress": "142.250.80.46",
-   "DestinationPort": "80",
-   "SourceAddress": "192.168.0.176",
-   "SourcePort": "51322",
-   "ProcessId": 0,
-   "DataAmount": 1,
-   "Timestamp": "2022-01-22T20:56:12.475214-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "./test_process",
-   "CommandLine": "./test_process",
-   "Protocol": "HTTP",
-   "DestinationAddress": "142.251.40.174",
-   "DestinationPort": "80",
-   "SourceAddress": "192.168.0.176",
-   "SourcePort": "50365",
-   "ProcessId": 0,
-   "DataAmount": 3,
-   "Timestamp": "2022-01-23T17:03:19.877682-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "./test_process",
-   "CommandLine": "./test_process",
-   "Protocol": "HTTP",
-   "DestinationAddress": "142.251.40.174",
-   "DestinationPort": "80",
-   "SourceAddress": "192.168.0.176",
-   "SourcePort": "51300",
-   "ProcessId": 0,
-   "DataAmount": 3,
-   "Timestamp": "2022-01-23T17:05:39.859044-05:00"
-  },
-  {
-   "UserName": "Erik Grueter",
-   "ProcessName": "./test_process",
-   "CommandLine": "./test_process",
-   "Protocol": "HTTP",
-   "DestinationAddress": "142.251.40.206",
-   "DestinationPort": "80",
-   "SourceAddress": "192.168.0.176",
-   "SourcePort": "51137",
-   "ProcessId": 0,
-   "DataAmount": 3,
-   "Timestamp": "2022-01-23T17:07:45.112545-05:00"
+   "DataAmount": 0,
+   "Timestamp": "2022-01-23T18:14:13.59293-05:00"
   }
  ]
 }
