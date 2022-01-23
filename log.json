@@ -35,6 +35,24 @@
    "CommandLine": "./m,-delete,./example.txt",
    "ProcessId": 20061,
    "Timestamp": "2022-01-23T18:13:51.96422-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "FilePath": "test.txt",
+   "Descriptor": "delete",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-delete,test.txt",
+   "ProcessId": 20920,
+   "Timestamp": "2022-01-23T18:57:51.03512-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "FilePath": "test.txt",
+   "Descriptor": "delete",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-delete,test.txt",
+   "ProcessId": 20955,
+   "Timestamp": "2022-01-23T18:57:58.69393-05:00"
   }
  ],
  "NetworkRequestEvents": [
