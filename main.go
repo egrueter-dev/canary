@@ -84,8 +84,6 @@ func main() {
 
 		filePath := osArgs[2]
 
-		fmt.Println(osArgs)
-
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
 			ProcessName: osArgs[0],
