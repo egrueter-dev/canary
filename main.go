@@ -125,6 +125,7 @@ func main() {
 	}
 }
 
+// Generate example.txt for file modification/deletion
 func GenerateExampleFiles() {
 	d1 := []byte("hello ")
 	err := os.WriteFile("example.txt", d1, 0644)
@@ -134,6 +135,7 @@ func GenerateExampleFiles() {
 	}
 }
 
+// Generate the log.json logfile for analytics
 func GenerateLogFile(file string) {
 	f, err := os.OpenFile(file, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 
@@ -159,6 +161,7 @@ func GenerateLogFile(file string) {
 	f.Close()
 }
 
+// Start an arbitrary executable process
 func ProcessStart(path string, args []string) {
 	output, err := exec.Command(path, args...).Output()
 
@@ -170,6 +173,7 @@ func ProcessStart(path string, args []string) {
 	fmt.Println(string(output))
 }
 
+// Create a file of any specified type
 func CreateFile(path string) {
 	// Create directories for path to file with permissions
 	if err := os.MkdirAll(filepath.Dir(path), os.ModePerm); err != nil {
@@ -178,6 +182,7 @@ func CreateFile(path string) {
 	os.Create(path)
 }
 
+// Delete a file located at a specific path
 func DeleteFile(path string) {
 	// Remove just file
 	if filepath.Dir(path) == "." {
@@ -211,7 +216,7 @@ func ModifyFile(path string, text string) {
 	}
 }
 
-// Send Log Data in Network Request
+// Send log data in network request
 func NetworkRequest(commandLine string, processName string, url string) {
 	jsonFile, err := os.Open(LogFileName)
 	byteValue, _ := ioutil.ReadAll(jsonFile)
