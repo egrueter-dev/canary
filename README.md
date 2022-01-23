@@ -23,7 +23,7 @@ Below are a list of the available commands:
 | Command         | Parameters          | Description                                     |
 | --------------- | ------------------- | ------------------------------------------------|
 | -list           |                     | List all available commands                     |
-| -setup          |                     | Generate Log & Example Files                    |
+| -setup          |                     | Generate log & example files                    |
 | -start-process  | filepath, arguments | Execute binary at path                          |
 | -create         | filepath            | Create specific file at path                    |
 | -delete         | filepath            | Delete specific file at path                    |
