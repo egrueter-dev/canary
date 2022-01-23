@@ -31,7 +31,7 @@ func main() {
 		pterm.DefaultTable.WithHasHeader().WithData(pterm.TableData{
 			{"Command", "Parameters", "Description"},
 			{"-list", "", "List available commands"},
-			{"-setup", "", "Generate Logfile"},
+			{"-setup", "", "Generate logfile and example files"},
 			{"-start-process", "[filepath, args]", "Execute binary"},
 			{"-create", "[filepath]", "Create specific file"},
 			{"-delete", "[filepath]", "Delete specific file"},
