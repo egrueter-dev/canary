@@ -59,6 +59,7 @@ func main() {
 
 		LogProcessStart(data, LogFileName)
 		ProcessStart(path, osArgs[2:])
+		pterm.Success.Printf("Process %s executed", path)
 	case "-create":
 		checkArgumentPresent(os.Args, 3, "[filepath]")
 
@@ -101,9 +102,10 @@ func main() {
 		destination := osArgs[2]
 		processName := osArgs[0]
 		NetworkRequest(commandLine, processName, destination)
+		pterm.Success.Printf("Network Request Complete\n")
 	case "-modify":
-		filePath := osArgs[1]
-		text := osArgs[2]
+		filePath := osArgs[2]
+		text := osArgs[3]
 
 		data := FileChangeEvent{
 			UserName:    fetchUserName(),
@@ -117,6 +119,7 @@ func main() {
 
 		LogFileChange(data, LogFileName)
 		ModifyFile(filePath, text)
+		pterm.Success.Printf("Modified %s successfully\n", filePath)
 	}
 }
 
@@ -199,7 +202,7 @@ func ModifyFile(path string, text string) {
 
 	defer file.Close()
 
-	_, err = file.WriteString("world")
+	_, err = file.WriteString(text)
 
 	if err != nil {
 		log.Fatalf("failed writing to file: %s", err)
