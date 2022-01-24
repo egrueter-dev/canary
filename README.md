@@ -40,7 +40,7 @@ The `build-executables.sh` shell script is used to build these binaries from the
  The Following Have been manually tested: 
   - [x]  Darwin/Arm64: 
   - [x] Linux/Amd64
-  - []  Windows/Amd64
+  - [x]  Windows/Amd64
 
 Binaries for several platforms have been generated. All binaries are located /binaries. These include:
    * Darwin/Arm64
