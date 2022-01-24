@@ -18,8 +18,6 @@ import (
 
 const LogFileName = "log.json"
 
-// TODO:
-// Compile final binaries
 func main() {
 	// Pull command Line Arguments
 	osArgs := os.Args
