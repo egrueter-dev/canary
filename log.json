@@ -6,6 +6,48 @@
    "CommandLine": "./m,-start-process,./example_executable,-args",
    "ProcessId": 20012,
    "Timestamp": "2022-01-23T18:12:34.993987-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-start-process,./m,-list",
+   "ProcessId": 5309,
+   "Timestamp": "2022-01-23T23:30:24.250212-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-start-process,./m,-setup",
+   "ProcessId": 5316,
+   "Timestamp": "2022-01-23T23:30:34.919441-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-start-process,./m,-create,foo.txt",
+   "ProcessId": 5335,
+   "Timestamp": "2022-01-23T23:30:56.16803-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-start-process,./example_executable,-foo",
+   "ProcessId": 5354,
+   "Timestamp": "2022-01-23T23:31:58.374959-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-start-process,./m,-list",
+   "ProcessId": 5372,
+   "Timestamp": "2022-01-23T23:33:09.249549-05:00"
+  },
+  {
+   "UserName": "Erik Grueter",
+   "ProcessName": "./m",
+   "CommandLine": "./m,-start-process,./m,-create,./foo.txt",
+   "ProcessId": 5385,
+   "Timestamp": "2022-01-23T23:33:27.803701-05:00"
   }
  ],
  "FileChangeEvents": [
